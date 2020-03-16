@@ -1,5 +1,7 @@
-FROM python:3.7-alpine
+FROM python:3.7-slim-buster
+
 ENV PYTHONUNBUFFERED 1
+
 RUN apt-get update \
   # dependencies for building Python packages
   && apt-get install -y build-essential \
@@ -12,8 +14,18 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 
+
 RUN mkdir /thumbsupnews
-WORKDIR /thumbsupnews
+
 COPY requirements.txt /thumbsupnews
-RUN pip install -r /thumsupnews/requirements.txt
+
+RUN pip install -r /thumbsupnews/requirements.txt
+
+COPY ./start /start
+RUN sed -i 's/\r$//g' /start
+RUN chmod +x /start
+
+WORKDIR /thumbsupnews
+
+
 COPY . /thumbsupnews

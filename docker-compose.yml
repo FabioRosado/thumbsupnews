@@ -1,15 +1,28 @@
-version: '3.7'
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
 
 services:
   db:
-    image: postgres
+    image: postgres_name
+    build:
+      context: . # context
+      dockerfile: ./db/Dockerfile
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data # local_db_path to docker postgres data folder
+      - local_postgres_data_backups:/backups # postgres backup db
   web:
     build:
       context: .
       dockerfile: ./Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+    command: /start
     volumes:
       - .:/thumbsupnews
     ports:
       - "8000:8000"
     image: thumbs_up_news
+    command: /start 
