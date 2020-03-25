@@ -1,5 +1,8 @@
 FROM python:3.7-slim-buster
+<<<<<<< HEAD
 
+=======
+>>>>>>> Train classifier for news articles
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
@@ -18,6 +21,7 @@ RUN apt-get update \
 RUN mkdir /thumbsupnews
 
 COPY requirements.txt /thumbsupnews
+<<<<<<< HEAD
 
 RUN pip install -r /thumbsupnews/requirements.txt
 
@@ -28,4 +32,7 @@ RUN chmod +x /start
 WORKDIR /thumbsupnews
 
 
+=======
+RUN pip install -r /thumbsupnews/requirements.txt
+>>>>>>> Train classifier for news articles
 COPY . /thumbsupnews
