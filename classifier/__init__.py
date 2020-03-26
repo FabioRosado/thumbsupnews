@@ -61,7 +61,6 @@ class NewsHeadlinerClassifier:
         print('Achieved {0:.2f}% accuracy against test set'.format(nltk.classify.accuracy(self.classifier, test_set)*100))
     
     def classify_new_sentence(self, sentence):
-        # print("Starting to classify '{}'".format(sentence))
         if not self.feature_words:
             self._read_csv()
             self._generate_word_features()
