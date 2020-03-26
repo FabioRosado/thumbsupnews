@@ -3,8 +3,7 @@ import scrapy
 
 class TheTimesScrapper(scrapy.Spider):
     name = 'the-times'
-    # allowed_domains = ['example.com']
-    start_urls = ['https://thetimes.co.uk/', 'https://news.sky.com/',  'https://www.bbc.co.uk/']
+    start_urls = ['https://thetimes.co.uk/']
 
     def parse(self, response):
             
