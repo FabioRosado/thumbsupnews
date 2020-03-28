@@ -10,9 +10,8 @@ class BBCScrapper(XMLFeedSpider):
     def parse_node(self, response, node):
         # self.logger.info('Hi, this is a <%s> node!: %s', self.itertag, ''.join(node.getall()))
         
-        item = {}
-        item['title'] = node.xpath('title/text()').get()
-        item['link'] = node.xpath('link/text()').get()
-        item['description'] = node.xpath('description/text()').get()
-        
-        return item
+        yield {
+            "title": node.xpath('title/text()').get(),
+            "link": node.xpath('link/text()').get(),
+            "description": node.xpath('description/text()').get()
+        }
