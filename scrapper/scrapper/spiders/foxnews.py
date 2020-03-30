@@ -2,7 +2,9 @@
 import scrapy
 from scrapy.spiders import XMLFeedSpider
 
-class BBCScrapper(XMLFeedSpider):
+from .helper import is_todays_article
+
+class FoxNewsScrapper(XMLFeedSpider):
     name = 'foxnews'
     start_urls = [
         'http://feeds.foxnews.com/foxnews/latest',
@@ -12,15 +14,15 @@ class BBCScrapper(XMLFeedSpider):
         'http://feeds.foxnews.com/foxnews/politics',
         'http://feeds.foxnews.com/foxnews/science',
         'http://feeds.foxnews.com/foxnews/tech',
-        'http://feeds.foxnews.com/foxnews/internal/travel/mixed',
     ]
     itertag = 'item'
 
     def parse_node(self, response, node):
         # self.logger.info('Hi, this is a <%s> node!: %s', self.itertag, ''.join(node.getall()))
-        
-        yield {
-            "title": node.xpath('title/text()').get(),
-            "link": node.xpath('link/text()').get(),
-            "description": node.xpath('description/text()').get()
-        }
+
+        if is_todays_article(node):
+            yield {
+                "title": node.xpath('title/text()').get(),
+                "link": node.xpath('link/text()').get(),
+                "description": node.xpath('description/text()').get()
+            }

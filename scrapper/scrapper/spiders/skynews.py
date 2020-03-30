@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.spiders import XMLFeedSpider
+from .helper import is_todays_article
 
-class BBCScrapper(XMLFeedSpider):
+class SkynewsClassifier(XMLFeedSpider):
     name = 'skynews'
     start_urls = [
         'http://feeds.skynews.com/feeds/rss/home.xml',
@@ -17,9 +18,10 @@ class BBCScrapper(XMLFeedSpider):
     ]
     itertag = 'item'
 
-    def parse_node(self, response, node):        
-        yield {
-            "title": node.xpath('title/text()').get(),
-            "link": node.xpath('link/text()').get(),
-            "description": node.xpath('description/text()').get()
-        }
+    def parse_node(self, response, node):
+        if is_todays_article(node):  
+            yield {
+                "title": node.xpath('title/text()').get(),
+                "link": node.xpath('link/text()').get(),
+                "description": node.xpath('description/text()').get()
+            }
