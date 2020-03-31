@@ -1,6 +1,7 @@
 import re
 import nltk
 import pickle
+import jsonlines
 
 from nltk.classify import NaiveBayesClassifier
 from nltk.classify import accuracy
@@ -31,12 +32,12 @@ class NewsHeadlineClassifier:
         }
 
     def _read_csv(self):
-        with open('./datasets/classified_news.csv', 'r') as input_csv:
+        with open('./datasets/new_classified_news.csv', 'r') as input_csv:
             for item in input_csv:
                 item = item.split(',')
                 doc, label = re.findall('\w+', ''.join(item[:-1]).lower()), item[-1].strip()
 
-                if label == 'Positive':
+                if label == 'positive':
                     self.positive_headlines.append([self.format_sentence(' '.join(doc).lower()), 'positive'])
                 else: 
                     self.negative_headlines.append([self.format_sentence(' '.join(doc).lower()), 'negative'])
@@ -76,23 +77,23 @@ class NewsHeadlineClassifier:
         return 'negative'
 
     def save_classifier(self, classifier):
-        with open('old_news.pickle', 'wb') as save_classifier:
+        with open('news.pickle', 'wb') as save_classifier:
             pickle.dump(classifier, save_classifier)
 
     def load_classifier(self):
-        with open("old_news.pickle", "rb") as loaded_classifier:
+        with open("news.pickle", "rb") as loaded_classifier:
             return pickle.load(loaded_classifier)
 
 
 classifier = NewsHeadlineClassifier()
 
-# with jsonlines.open('../scrapper/news.jl') as news:
-#     for headline in news.iter(type=dict, skip_invalid=True):
-#         score = classifier.classify(headline['title'])
-#         print(f"{headline['title']} -- {score}")
+with jsonlines.open('../scrapper/news.jl') as news:
+    for headline in news.iter(type=dict, skip_invalid=True):
+        score = classifier.classify(headline['title'])
+        print(f"{headline['title']} -- {score}")
         
-with open('./datasets/new_classified_news.csv', 'w') as classified:
-    with open('./datasets/news.csv') as news:
-        for headline in news.readlines():
-            sentiment = classifier.classify(headline)
-            classified.write("{},{}\n".format(headline.rstrip(), sentiment))
+# with open('./datasets/new_classified_news.csv', 'w') as classified:
+#     with open('./datasets/news.csv') as news:
+#         for headline in news.readlines():
+#             sentiment = classifier.classify(headline)
+#             classified.write("{},{}\n".format(headline.rstrip(), sentiment))
