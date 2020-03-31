@@ -4,20 +4,17 @@ from scrapy.spiders import XMLFeedSpider
 
 from .helper import is_todays_article
 
-class RSSScrapper(XMLFeedSpider):
-    name = 'rss'
+class WashingtonPostScrapper(XMLFeedSpider):
+    name = 'washington'
     start_urls = [
-        'https://www.yahoo.com/news/rss',
-        'https://www.vox.com/rss/index.xml',
-        'http://feeds.reuters.com/reuters/TopNews/',
-        'https://www.dailymail.co.uk/articles.rss',
-        'https://www.techworld.com/rss',
-        'https://www.cnet.com/rss/news',
+        'http://feeds.washingtonpost.com/rss/world',
+        'http://feeds.washingtonpost.com/rss/business',
+        'http://feeds.washingtonpost.com/rss/lifestyle',
+        'http://feeds.washingtonpost.com/rss/entertainment',
     ]
     itertag = 'item'
 
     def parse_node(self, response, node):
-        # self.logger.info('Hi, this is a <%s> node!: %s', self.itertag, ''.join(node.getall()))
 
         if is_todays_article(node):
             yield {
@@ -26,5 +23,5 @@ class RSSScrapper(XMLFeedSpider):
                 "description": node.xpath('description/text()').get(),
                 "date": node.xpath('pubDate/text()').get(),
                 "categories": node.xpath('//channel/title/text()').getall(),
-                "source": node.xpath('//channel/title/text()').getall()
+                "source": "The Washington Post"
             }
