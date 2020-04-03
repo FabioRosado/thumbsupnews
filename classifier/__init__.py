@@ -1,3 +1,4 @@
+import os
 import re
 import nltk
 import pickle
@@ -8,6 +9,8 @@ from nltk.classify import accuracy
 from nltk.corpus import stopwords
 from nltk.tokenize.regexp import regexp_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class NewsHeadlineClassifier:
@@ -32,7 +35,7 @@ class NewsHeadlineClassifier:
         }
 
     def _read_csv(self):
-        with open('./datasets/new_classified_news.csv', 'r') as input_csv:
+        with open(os.path.join(ROOT, 'classifier', '/datasets', '/new_classified_news.csv'), 'r') as input_csv:
             for item in input_csv:
                 item = item.split(',')
                 doc, label = re.findall('\w+', ''.join(item[:-1]).lower()), item[-1].strip()
@@ -77,20 +80,20 @@ class NewsHeadlineClassifier:
         return 'negative'
 
     def save_classifier(self, classifier):
-        with open('news.pickle', 'wb') as save_classifier:
+        with open(os.path.join(ROOT, 'news.pickle'), 'wb') as save_classifier:
             pickle.dump(classifier, save_classifier)
 
     def load_classifier(self):
-        with open("news.pickle", "rb") as loaded_classifier:
+        with open(os.path.join(ROOT,'classifier/', "news.pickle"), "rb") as loaded_classifier:
             return pickle.load(loaded_classifier)
 
 
-classifier = NewsHeadlineClassifier()
+# classifier = NewsHeadlineClassifier()
 
-with jsonlines.open('../scrapper/news.jl') as news:
-    for headline in news.iter(type=dict, skip_invalid=True):
-        score = classifier.classify(headline['title'])
-        print(f"{headline['title']} -- {score}")
+# with jsonlines.open('../scrapper/news.jl') as news:
+#     for headline in news.iter(type=dict, skip_invalid=True):
+#         score = classifier.classify(headline['title'])
+#         print(f"{headline['title']} -- {score}")
         
 # with open('./datasets/new_classified_news.csv', 'w') as classified:
 #     with open('./datasets/news.csv') as news:

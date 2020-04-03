@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+import sys
+sys.path.insert(1, '/Users/fabiorosado/Documents/GitHub.tmp/thumbsupnews/')
 # Scrapy settings for scrapper project
 #
 # For simplicity, this file contains only settings considered important or

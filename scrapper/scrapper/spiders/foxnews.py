@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.spiders import XMLFeedSpider
+from classifier import NewsHeadlineClassifier
 
 from .helper import is_todays_article
 
@@ -24,14 +25,21 @@ class FoxNewsScrapper(XMLFeedSpider):
     ]
     itertag = 'item'
 
+    def __init__(self):
+        self.classifier = NewsHeadlineClassifier()
+
     def parse_node(self, response, node):
 
         if is_todays_article(node):
+            title = node.xpath('title/text()').get()
+
             yield {
-                "title": node.xpath('title/text()').get(),
+                "title": title, 
                 "link": node.xpath('link/text()').get(),
                 "description": node.xpath('description/text()').get(),
                 "date": node.xpath('pubDate/text()').get(),
                 "categories": get_categories_foxnews(node.xpath('category/text()').getall()),
-                "source": "Fox News"
+                "source": "Fox News",
+                "sentiment": self.classifier.classify(title)
+
             }

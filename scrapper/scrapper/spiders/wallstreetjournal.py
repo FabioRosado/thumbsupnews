@@ -2,6 +2,7 @@
 import scrapy
 from scrapy import Selector
 from scrapy.spiders import XMLFeedSpider
+from classifier import NewsHeadlineClassifier
 
 from .helper import is_todays_article
 
@@ -17,16 +18,22 @@ class WallstreetJournalScrapper(XMLFeedSpider):
     ]
     itertag = 'item'
 
+    def __init__(self):
+        self.classifier = NewsHeadlineClassifier()
+
     def parse_node(self, response, node):
         sel = Selector(response)
         sel.register_namespace("wsj", "http://dowjones.net/rss/")
 
         if is_todays_article(node):
+            title = node.xpath('title/text()').get()    
+
             yield {
-                "title": node.xpath('title/text()').get(),
+                "title": title,
                 "link": node.xpath('link/text()').get(),
                 "description": node.xpath('description/text()').get(),
                 "date": node.xpath('pubDate/text()').get(),
                 "categories": sel.xpath('//wsj:articletype/text()').getall(),
-                "source": "Wallstreet Journal"
+                "source": "Wallstreet Journal",
+                "sentiment": self.classifier.classify(title)
             }

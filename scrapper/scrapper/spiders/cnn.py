@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.spiders import XMLFeedSpider
+from classifier import NewsHeadlineClassifier
+
 from .helper import is_todays_article
 
 def get_categories_foxnews(categories):
@@ -23,15 +25,21 @@ class CNNScrapper(XMLFeedSpider):
     ]
     itertag = 'item'
 
+    def __init__(self):
+        self.classifier = NewsHeadlineClassifier()
+
     def parse_node(self, response, node):
         feed_type = response.url.split('/')[-1].replace('.rss', '')
         
         if is_todays_article(node):
+            title = node.xpath('title/text()').get()
+
             yield {
-                "title": node.xpath('title/text()').get(),
+                "title": title,
                 "link": node.xpath('link/text()').get(),
                 "description": node.xpath('description/text()').get(),
                 "date": node.xpath('pubDate/text()').get(),
                 "categories": feed_type.replace('_', ' '),
-                "source": "CNN"
+                "source": "CNN",
+                "sentiment": self.classifier.classify(title)
             }

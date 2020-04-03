@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.spiders import XMLFeedSpider
+from classifier import NewsHeadlineClassifier
 
 from .helper import is_todays_article
 
@@ -17,14 +18,20 @@ class TechCrunchScrapper(XMLFeedSpider):
     ]
     itertag = 'item'
 
+    def __init__(self):
+        self.classifier = NewsHeadlineClassifier()
+
     def parse_node(self, response, node):
-        print(node.xpath('category/text()').getall(),)
-        # if is_todays_article(node):
-        #     yield {
-        #         "title": node.xpath('title/text()').get(),
-        #         "link": node.xpath('link/text()').get(),
-        #         "description": node.xpath('description/text()').get(),
-        #         "date": node.xpath('pubDate/text()').get(),
-        #         "categories": node.xpath('category/text()').getall(),
-        #         "source": node.xpath('//channel/title/text()').get()
-        #     }
+
+        if is_todays_article(node):
+            title = node.xpath('title/text()').get()
+
+            yield {
+                "title": title,
+                "link": node.xpath('link/text()').get(),
+                "description": node.xpath('description/text()').get(),
+                "date": node.xpath('pubDate/text()').get(),
+                "categories": node.xpath('category/text()').getall(),
+                "source": node.xpath('//channel/title/text()').get(),
+                "sentiment": self.classifier.classify(title)
+            }
