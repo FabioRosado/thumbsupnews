@@ -8,6 +8,7 @@ from backend.serializers import HeadlineSerializer
 
 
 class HeadlinesList(viewsets.ModelViewSet):
+    
     queryset = Headline.objects.all()
     serializer_class = HeadlineSerializer
     filterset_fields = ['categories', 'source', 'sentiment', 'is_positive']
