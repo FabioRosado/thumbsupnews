@@ -8,3 +8,5 @@ classifier.pickle
 news.jl
 db.sqlite3
 backend/migrations/
+migrations/
+.DS_Store
