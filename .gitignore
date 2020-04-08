@@ -10,3 +10,5 @@ db.sqlite3
 backend/migrations/
 migrations/
 .DS_Store
+.next/
+node_modules/
