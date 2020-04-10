@@ -1,0 +1,24 @@
+
+.primary-button {
+  color: $blue-dark;
+  padding: .2rem .5rem;
+  border: 1px solid $pink;
+
+  &:hover, &:focus {
+    background-color: $pink-lightest;
+  }
+}
+
+// Borders Styling
+
+.border-bottom {
+  border-bottom: 1px solid $bgray-lightest;
+}
+
+.border-top {
+  border-top: 1px solid $bgray-lightest;
+}
+
+.border-right {
+  border-right: 1px solid $bgray-lightest;
+}

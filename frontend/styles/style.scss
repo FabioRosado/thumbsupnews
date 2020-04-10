@@ -1,7 +1,15 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-.bottom-border {
-  border-bottom: solid 1px #e2e8f0;
+@import './colors';
+@import './header';
+@import './elements';
+
+
+
+html {
+ font-size: 20px;
+ line-height: 1.58;
+ font-family: 'Montserrat', sans-serif;
 }

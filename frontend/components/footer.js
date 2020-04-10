@@ -2,12 +2,14 @@ import React from "react"
 import Link from "next/link"
 
 
-const Footer = () => (
-  <div>
-    <Link href="/index"><a>Home</a></Link>
-    <Link href="/about"><a>About</a></Link>
-    <Link href="/contacts"><a>Contacts</a></Link>
-  </div>
+const FooterComponent = () => (
+  <footer className="border-top p-5 text-small">  
+    <nav>
+      <Link href="/index"><a className="nav-link mr-5">Home</a></Link>
+      <Link href="/about"><a className="nav-link mr-5">About</a></Link>
+      <Link href="/contacts"><a className="nav-link mr-5">Contacts</a></Link>
+    </nav>
+  </footer>  
 )
 
-export default Footer
+export default FooterComponent
