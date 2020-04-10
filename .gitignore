@@ -13,3 +13,4 @@ migrations/
 .next/
 node_modules/
 .cache/
+frontend/.env/
