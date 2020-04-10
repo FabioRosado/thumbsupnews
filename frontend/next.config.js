@@ -1,2 +1,28 @@
-const withImages = require('next-images')
-module.exports = withImages()
+require("dotenv").config();
+
+const withImages = require("next-images");
+const path = require("path");
+const Dotenv = require("dotenv-webpack");
+
+let config = {
+  webpack: config => {
+  config.plugins = config.plugins || [];
+  config.node = {
+    fs: "empty"
+  };
+
+  config.plugins = [
+    ...config.plugins,
+    new Dotenv({
+      path: path.join(__dirname, ".env"),
+      systemvars: true
+    })
+  ];
+
+  return config;
+  }
+};
+
+config = withImages(config)
+
+module.exports = config;
