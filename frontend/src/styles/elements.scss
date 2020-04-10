@@ -1,0 +1,11 @@
+
+.primary-button {
+  color: $blue-dark;
+  padding: .2rem .5rem;
+  border: 1px solid $pink;
+
+  &:hover, &:focus {
+    background-color: $pink-lightest;
+  }
+}
+

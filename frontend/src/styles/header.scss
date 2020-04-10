@@ -1,0 +1,20 @@
+.border-bottom {
+  border-bottom: 1px solid $bgray-lightest;
+}
+
+.active-link {
+  color: $pink-dark;
+}
+
+.nav-link {
+  text-decoration: none;
+  background-image: linear-gradient($blue-dark, $blue-dark);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size .3s;
+
+  &:hover, &:focus {
+    background-size: 100% 2px;
+  }
+}
