@@ -2,6 +2,7 @@ import React from "react"
 import fetch from "isomorphic-unfetch"
 
 import Layout from "../components/layout"
+import Card from "../components/card"
 
 
 export default function Index({data}) {
@@ -21,9 +22,9 @@ export default function Index({data}) {
           </ul>
         </div>
 
-        <div className="flex flex-col md:flex-row p-12">
-        Hello World!
-        {console.log(data)}
+        <div className="main-content">
+        {data.map(article => <Card headline={article} key={article.title} />)}
+        
         </div>
       </div>
     </Layout>
@@ -31,12 +32,18 @@ export default function Index({data}) {
 }
 
 Index.getInitialProps = async ctx => {
-  const res = await fetch('http://localhost:8000/headlines/', {
-    headers: {
-      "Authorization": `Token ${process.env.TOKEN}`
-    }
-  })
-  const json = await res.json()
+  try {
+    const res = await fetch('http://localhost:8000/headlines/', {
+      headers: {
+        "Authorization": `Token ${process.env.TOKEN}`
+      }
+    })
+    const json = await res.json()
 
-  return {data: json}
+    return {data: json}
+  }
+  catch(err) {
+    console.log(err);
+    return {data: []}
+  }
 }

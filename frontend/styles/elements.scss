@@ -74,5 +74,10 @@
     color: $blue-dark !important;
     font-size: 1.5rem !important;
   }
+  .main-content {
+    // display: grid;
+    // grid-gap: 1rem;
+    // grid-template-rows: repeat(4 1fr);
+  }
 
 }
