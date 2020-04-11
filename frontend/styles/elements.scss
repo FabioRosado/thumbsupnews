@@ -22,3 +22,57 @@
 .border-right {
   border-right: 1px solid $bgray-lightest;
 }
+
+
+// Page elements
+
+.sidebar-main {
+  display: grid;
+  grid-template-columns: 1fr 84%;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    min-width: 303px;
+    display: block; 
+
+    @include mobile {
+      display: none;
+    }
+  }
+  .sidebar-header {
+    color: $gray-dark;
+    position: relative;
+  }
+
+  .sidebar-header::after{
+    position: absolute;
+    content: "";
+    height: 2px;
+    background-color: $bgray-lightest;
+    top: 50%;
+    width: 70%;
+    margin-left: 15px;
+  }
+
+
+  .sidebar-menu-item {
+    color: $blue-darkest;
+    font-size: 1.25rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+
+    &:hover {
+      color: $blue-dark;
+      font-size: 1.5rem;
+    }
+  }
+
+  .sidebar-menu-item.active {
+    color: $blue-dark !important;
+    font-size: 1.5rem !important;
+  }
+
+}

@@ -2,10 +2,16 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@mixin mobile {
+    @media (max-width:700px) {
+      @content
+    }
+  };
+
+
 @import './colors';
 @import './header';
 @import './elements';
-
 
 
 html {

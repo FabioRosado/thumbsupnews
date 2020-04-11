@@ -1,6 +1,7 @@
 
 // Greys
 $black: #34363E;
+$gray-dark: #C4C4C4;
 $gray: #DFE2EC;
 $gray-light: #F0F1F5;
 $gray-lightest: #F6F7F9;
@@ -12,6 +13,7 @@ $pink-light: #FFCEDC;
 $pink-lightest: #FFE5ED;
 
 // Blue
+$blue-darkest: #717198;
 $blue-dark: #5E43F9;
 $blue: #A7A8E9;
 $blue-light: #D5D1FD;
@@ -27,3 +29,12 @@ $green-dark: #17CF7F;
 $green: #77EEBA;
 $green-light: #99FFD3;
 $green-lightest: #E5FFF4;
+
+
+.text-blue-darkest {
+    color: $blue-darkest;
+}
+
+.text-blue-dark {
+    color: $blue-dark;
+}
