@@ -3,5 +3,39 @@
 .card {
   border: 1px solid;
   padding: 1rem;
-  margin: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  header {
+    h1 {
+      line-height: 25px;
+    }
+  }
+
+  body {
+    line-height: 20px;
+  }
+  .letter {
+    position: absolute;
+    font-size: 80px;
+    top: 0;
+    left: .25rem;
+    font-weight: 600;
+    color:rgba(0, 0, 0, 0.15);
+  }
+}
+
+$card-colors: $pink, $blue-light, $green, $bgray-light;
+$repeat: 8;
+
+@for $i from 1 through $repeat {
+    .card:nth-child(#{length($card-colors)}n+#{$i}) {
+      $random-color: nth($card-colors, random(length($card-colors)));
+      background-color: $random-color;
+      border-color: darken($random-color, 30%);
+
+      footer {
+        color: darken($random-color, 35%);
+      }
+    }
 }
