@@ -25,7 +25,7 @@ def transform_date(date):
     The date obtained from the feed will have the following 
     format - `2020-04-03T03:01:00Z` and we want to just get
     the date."""
-    return parse(date, ignoretz=True).strftime("%d %b %Y")
+    return parse(date, ignoretz=True).date()
 
 def remove_html(description):
     try:
