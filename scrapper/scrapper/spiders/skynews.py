@@ -8,7 +8,6 @@ from .helper import is_todays_article, transform_date, remove_html
 class SkyNewsScrapper(XMLFeedSpider):
     name = 'skynews'
     start_urls = [
-        'http://feeds.skynews.com/feeds/rss/home.xml',
         'http://feeds.skynews.com/feeds/rss/uk.xml',
         'http://feeds.skynews.com/feeds/rss/world.xml',
         'http://feeds.skynews.com/feeds/rss/us.xml',

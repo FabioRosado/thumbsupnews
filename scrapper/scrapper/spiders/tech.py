@@ -24,13 +24,15 @@ class TechCrunchScrapper(XMLFeedSpider):
 
         if is_todays_article(node):
             title = node.xpath('title/text()').get()
+            
+            description = remove_html(node.xpath('description/text()').get())
 
             yield {
                 "title": title,
                 "link": node.xpath('link/text()').get().strip(),
-                "description": remove_html(node.xpath('description/text()').get()),
+                "description": description.replace('Read more...', ''),
                 "date": transform_date(node.xpath('pubDate/text()').get()),
-                "categories": ', '.join(node.xpath('category/text()').getall()),
+                "categories": "Tech",
                 "source": node.xpath('//channel/title/text()').get(),
                 "sentiment": self.classifier.classify(title)
             }

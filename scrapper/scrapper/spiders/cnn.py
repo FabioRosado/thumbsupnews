@@ -24,16 +24,25 @@ class CNNScrapper(XMLFeedSpider):
 
     def parse_node(self, response, node):
         feed_type = response.url.split('/')[-1].replace('.rss', '')
+        category = feed_type.replace('edition_', '').title()
+        
+        if not category:
+            category = "World"
         
         if is_todays_article(node):
             title = node.xpath('title/text()').get().strip()
+            
+            try: 
+                description = remove_html(node.xpath('description/text()').get())
+            except TypeError:
+                description = ''
 
             yield {
                 "title": title,
                 "link": node.xpath('link/text()').get().strip(),
-                "description": remove_html(node.xpath('description/text()').get()),
+                "description": description,
                 "date": transform_date(node.xpath('pubDate/text()').get()),
-                "categories": feed_type.replace('_', ' '),
+                "categories": category,
                 "source": "CNN",
                 "sentiment": self.classifier.classify(title)
             }

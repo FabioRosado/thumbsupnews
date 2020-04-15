@@ -33,7 +33,7 @@ class WallstreetJournalScrapper(XMLFeedSpider):
                 "link": node.xpath('link/text()').get().strip(),
                 "description": remove_html(node.xpath('description/text()').get()),
                 "date": transform_date(node.xpath('pubDate/text()').get()),
-                "categories": ', '.join(set(sel.xpath('//wsj:articletype/text()').getall())),
+                "categories": list(set(sel.xpath('//wsj:articletype/text()').getall()))[0],
                 "source": "Wallstreet Journal",
                 "sentiment": self.classifier.classify(title)
             }

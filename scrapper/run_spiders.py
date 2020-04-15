@@ -6,6 +6,6 @@ process = CrawlerProcess(setting)
 
 for spider_name in process.spiders.list():
     print ("Running spider %s" % (spider_name))
-    process.crawl(spider_name) 
+    process.crawl(spider_name)
 
 process.start()
