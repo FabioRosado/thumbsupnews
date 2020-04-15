@@ -9,7 +9,7 @@ class Headline(models.Model):
     source = models.CharField(max_length=150)
     sentiment = models.CharField(max_length=10)
     is_positive = models.BooleanField(default=False)
-    date = models.DateTimeField()
+    date = models.DateField()
     created = models.DateTimeField(auto_now_add=True)
     
     class Meta:

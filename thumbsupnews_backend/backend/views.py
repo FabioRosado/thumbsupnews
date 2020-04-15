@@ -11,7 +11,7 @@ class HeadlinesList(viewsets.ModelViewSet):
     
     queryset = Headline.objects.all()
     serializer_class = HeadlineSerializer
-    filterset_fields = ['categories', 'source', 'sentiment', 'is_positive']
+    filterset_fields = ['categories', 'source', 'sentiment', 'is_positive', 'date']
     
     def perform_create(self, serializer):
         serializer.save()
