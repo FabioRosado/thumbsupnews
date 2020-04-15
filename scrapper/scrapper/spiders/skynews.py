@@ -3,7 +3,7 @@ import scrapy
 from scrapy.spiders import XMLFeedSpider
 from classifier import NewsHeadlineClassifier
 
-from .helper import is_todays_article
+from .helper import is_todays_article, transform_date, remove_html
 
 class SkyNewsScrapper(XMLFeedSpider):
     name = 'skynews'
@@ -27,11 +27,11 @@ class SkyNewsScrapper(XMLFeedSpider):
         title = node.xpath('//channel/title/text()').get()
         if is_todays_article(node):
             yield {
-                "title": title,
-                "link": node.xpath('link/text()').get(),
-                "description": node.xpath('description/text()').get(),
-                "date": node.xpath('pubDate/text()').get(),
-                "categories": title.split(' | ')[0],
+                "title": node.xpath('title/text()').get().strip(),
+                "link": node.xpath('link/text()').get().strip(),
+                "description": remove_html(node.xpath('description/text()').get()),
+                "date": transform_date(node.xpath('pubDate/text()').get()),
+                "categories": node.xpath('//channel/title/text()').get().split(" News")[0],
                 "source": "Sky News",
                 "sentiment": self.classifier.classify(title)
             }

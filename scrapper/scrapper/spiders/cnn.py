@@ -3,14 +3,8 @@ import scrapy
 from scrapy.spiders import XMLFeedSpider
 from classifier import NewsHeadlineClassifier
 
-from .helper import is_todays_article
+from .helper import is_todays_article, transform_date, remove_html
 
-def get_categories_foxnews(categories):
-    """Split categories to get only useful stuff."""
-    cat_list = list()
-    for category in categories[1:]:
-        cat_list.extend(re.sub(r'(fox-news/|fnc|article|Fox News)', '', category).split('/'))
-    return list(filter(None, cat_list))
 
 class CNNScrapper(XMLFeedSpider):
     name = 'cnn'
@@ -32,13 +26,13 @@ class CNNScrapper(XMLFeedSpider):
         feed_type = response.url.split('/')[-1].replace('.rss', '')
         
         if is_todays_article(node):
-            title = node.xpath('title/text()').get()
+            title = node.xpath('title/text()').get().strip()
 
             yield {
                 "title": title,
-                "link": node.xpath('link/text()').get(),
-                "description": node.xpath('description/text()').get(),
-                "date": node.xpath('pubDate/text()').get(),
+                "link": node.xpath('link/text()').get().strip(),
+                "description": remove_html(node.xpath('description/text()').get()),
+                "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": feed_type.replace('_', ' '),
                 "source": "CNN",
                 "sentiment": self.classifier.classify(title)

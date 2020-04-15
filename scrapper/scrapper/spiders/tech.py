@@ -3,7 +3,7 @@ import scrapy
 from scrapy.spiders import XMLFeedSpider
 from classifier import NewsHeadlineClassifier
 
-from .helper import is_todays_article
+from .helper import is_todays_article, transform_date, remove_html
 
 class TechCrunchScrapper(XMLFeedSpider):
     name = 'tech'
@@ -11,7 +11,6 @@ class TechCrunchScrapper(XMLFeedSpider):
         'http://feeds.feedburner.com/TechCrunch/',
         'https://www.pcworld.com/index.rss',
         'https://lifehacker.com/rss',
-        'https://www.engadget.com/rss-full.xml',
         'http://feeds.mashable.com/Mashable',
         'https://gizmodo.com/rss',
         'http://feeds.feedburner.com/Makeuseof',
@@ -28,10 +27,10 @@ class TechCrunchScrapper(XMLFeedSpider):
 
             yield {
                 "title": title,
-                "link": node.xpath('link/text()').get(),
-                "description": node.xpath('description/text()').get(),
-                "date": node.xpath('pubDate/text()').get(),
-                "categories": node.xpath('category/text()').getall(),
+                "link": node.xpath('link/text()').get().strip(),
+                "description": remove_html(node.xpath('description/text()').get()),
+                "date": transform_date(node.xpath('pubDate/text()').get()),
+                "categories": ', '.join(node.xpath('category/text()').getall()),
                 "source": node.xpath('//channel/title/text()').get(),
                 "sentiment": self.classifier.classify(title)
             }

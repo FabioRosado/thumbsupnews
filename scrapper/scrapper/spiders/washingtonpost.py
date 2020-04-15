@@ -3,7 +3,7 @@ import scrapy
 from scrapy.spiders import XMLFeedSpider
 from classifier import NewsHeadlineClassifier
 
-from .helper import is_todays_article
+from .helper import is_todays_article, transform_date, remove_html
 
 class WashingtonPostScrapper(XMLFeedSpider):
     name = 'washington'
@@ -22,15 +22,14 @@ class WashingtonPostScrapper(XMLFeedSpider):
     def parse_node(self, response, node):
 
         if is_todays_article(node):
-            title = node.xpath('title/text()').get()
+            title = node.xpath('title/text()').get().strip()
 
             yield {
                 "title": title,
-                "link": node.xpath('link/text()').get(),
-                "description": node.xpath('description/text()').get(),
-                "date": node.xpath('pubDate/text()').get(),
-                "categories": node.xpath('//channel/title/text()').getall(),
+                "link": node.xpath('link/text()').get().strip(),
+                "description": remove_html(node.xpath('description/text()').get()),
+                "date": transform_date(node.xpath('pubDate/text()').get()),
+                "categories": node.xpath('//channel/title/text()').getall()[0],
                 "source": "The Washington Post",
                 "sentiment": self.classifier.classify(title)
-
             }

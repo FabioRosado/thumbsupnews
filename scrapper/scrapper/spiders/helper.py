@@ -18,3 +18,18 @@ def is_todays_article(node):
         return False
     except Exception:
         return False
+    
+
+def transform_date(date):
+    """Transform date to return just day, month and year.
+    The date obtained from the feed will have the following 
+    format - `2020-04-03T03:01:00Z` and we want to just get
+    the date."""
+    return parse(date, ignoretz=True).strftime("%d %b %Y")
+
+def remove_html(description):
+    try:
+        plain_text = re.sub('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});|\\n|\\t', '', description)
+    except AttributeError:
+        plain_text = description
+    return plain_text.replace('"', "'").strip()

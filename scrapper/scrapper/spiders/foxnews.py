@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
+import re
 import scrapy
 from scrapy.spiders import XMLFeedSpider
 from classifier import NewsHeadlineClassifier
 
-from .helper import is_todays_article
+from .helper import is_todays_article, transform_date, remove_html
 
 def get_categories_foxnews(categories):
     """Split categories to get only useful stuff."""
     cat_list = list()
     for category in categories[1:]:
         cat_list.extend(re.sub(r'(fox-news/|fnc|article|Fox News)', '', category).split('/'))
-    return list(filter(None, cat_list))
+    return ', '.join(list(filter(None, cat_list)))
 
 class FoxNewsScrapper(XMLFeedSpider):
     name = 'foxnews'
@@ -31,15 +32,14 @@ class FoxNewsScrapper(XMLFeedSpider):
     def parse_node(self, response, node):
 
         if is_todays_article(node):
-            title = node.xpath('title/text()').get()
+            title = node.xpath('title/text()').get().strip()
 
             yield {
                 "title": title, 
-                "link": node.xpath('link/text()').get(),
-                "description": node.xpath('description/text()').get(),
-                "date": node.xpath('pubDate/text()').get(),
+                "link": node.xpath('link/text()').get().split(),
+                "description": remove_html(node.xpath('description/text()').get()),
+                "date": transform_date(node.xpath('pubDate/text()').get().strip()),
                 "categories": get_categories_foxnews(node.xpath('category/text()').getall()),
                 "source": "Fox News",
                 "sentiment": self.classifier.classify(title)
-
             }
