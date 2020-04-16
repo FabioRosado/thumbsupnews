@@ -10,7 +10,7 @@ from .helper import is_todays_article, transform_date, remove_html
 from classifier import NewsHeadlineClassifier
 
 def get_source(source):
-    return re.findall(r'Mail Online|Yahoo News|Techworld|CNET News')[0]
+    return re.findall(r'Mail Online|Yahoo News|Techworld|CNET News', ', '.join(source))[0]
 
 def get_categories(category):
     if 'Mail Online' in category:
