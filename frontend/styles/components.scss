@@ -26,7 +26,7 @@
 }
 
 $card-colors: $pink, $blue-light, $green, $bgray-light;
-$repeat: 8;
+$repeat: 24;
 
 @for $i from 1 through $repeat {
     .card:nth-child(#{length($card-colors)}n+#{$i}) {
