@@ -10,7 +10,7 @@ from backend.serializers import HeadlineSerializer
 # @method_decorator(name="GET")
 class HeadlinesList(viewsets.ModelViewSet):
     
-    queryset = Headline.objects.all()
+    queryset = Headline.objects.all().order_by('-date')
     serializer_class = HeadlineSerializer
     filterset_fields = ['categories', 'source', 'sentiment', 'is_positive', 'date']
     
