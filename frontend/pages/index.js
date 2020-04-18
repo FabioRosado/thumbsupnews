@@ -1,29 +1,41 @@
-import React from "react"
+import React, { useState } from "react"
 import fetch from "isomorphic-unfetch"
+import useSwr from 'swr'
 
 import Layout from "../components/layout"
 import Card from "../components/card"
 
+const fetcher = url => fetch(url).then(res => res.json())
 
-export default function Index({data}) {
+
+function Index(props) {
+  const [data, setData ] = useState(props.data)
+
+  const t = item => {
+    fetch('/api/get-category', {method: 'POST', body: item})
+      .then(results => results.json())
+      .then(r => setData(r))
+      .catch(error => console.log(error))
+  }
+  
   return (
     <Layout>
       <div className="sidebar-main">
         <div className="sidebar border-right h-screen p-8">
           <p className="sidebar-header text-sm">Categories</p>
-          <ul className="my-5 side-menu text-xl font-bold">
-            <li className="sidebar-menu-item active">All</li>
-            <li className="sidebar-menu-item">Business</li>
-            <li className="sidebar-menu-item">Lifestyle</li>
-            <li className="sidebar-menu-item">Markets</li>
-            <li className="sidebar-menu-item">Tech</li>
-            <li className="sidebar-menu-item">Entertainment</li>
-            <li className="sidebar-menu-item">World</li>
+          <ul className="my-5 side-menu text-xl">
+            <li><button className="sidebar-menu-item" onClick={()=> t("")}>All</button></li>
+            <li><button className="sidebar-menu-item" onClick={()=> t("Business")}>Business</button></li>
+            <li><button className="sidebar-menu-item" onClick={()=> t("Lifestyle")}>Lifestyle</button></li>
+            <li><button className="sidebar-menu-item" onClick={()=> t("Markets")}>Markets</button></li>
+            <li><button className="sidebar-menu-item" onClick={()=> t("Tech")}>Tech</button></li>
+            <li><button className="sidebar-menu-item" onClick={()=> t("Entertainment")}>Entertainment</button></li>
+            <li><button className="sidebar-menu-item" onClick={()=> t("World")}>World</button></li>
           </ul>
         </div>
 
         <div className="main-content">
-        {data.map(article => <Card headline={article} key={article.title} />)}
+        {data.results.map(article => <Card headline={article} key={article.id} />)}
         
         </div>
       </div>
@@ -31,19 +43,25 @@ export default function Index({data}) {
   );
 }
 
-Index.getInitialProps = async ctx => {
+
+export async function getServerSideProps() {
+
+  const moment = require('moment')
+  const date = moment().format('YYYY-MM-DD')
+
   try {
-    const res = await fetch('http://localhost:8000/headlines/', {
+    const res = await fetch(`${process.env.BACKEND_URL}`, {
       headers: {
         "Authorization": `Token ${process.env.TOKEN}`
       }
     })
-    const json = await res.json()
-
-    return {data: json}
-  }
-  catch(err) {
+  
+    const data = await res.json()
+    return {props: {data}}
+  } catch(err) {
     console.log(err);
-    return {data: []}
-  }
+    return {props: {} }
+ }
 }
+
+export default Index
