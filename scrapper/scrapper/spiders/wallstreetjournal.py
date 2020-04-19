@@ -6,6 +6,20 @@ from classifier import NewsHeadlineClassifier
 
 from .helper import is_todays_article, transform_date, remove_html
 
+
+def get_categories(categories):
+    category = list(set(categories))[0]
+
+    if category == 'Future of Everything':
+        return 'Tech'
+
+    if 'Nguyen' in category:
+        return "Personal Technology"
+
+    if category == 'Half Full':
+        return "Entertainment"
+
+
 class WallstreetJournalScrapper(XMLFeedSpider):
     name = 'wallstreet'
     start_urls = [
@@ -33,7 +47,7 @@ class WallstreetJournalScrapper(XMLFeedSpider):
                 "link": node.xpath('link/text()').get().strip(),
                 "description": remove_html(node.xpath('description/text()').get()),
                 "date": transform_date(node.xpath('pubDate/text()').get()),
-                "categories": list(set(sel.xpath('//wsj:articletype/text()').getall()))[0],
+                "categories": get_categories(sel.xpath('//wsj:articletype/text()').getall()),
                 "source": "Wallstreet Journal",
                 "sentiment": self.classifier.classify(title)
             }

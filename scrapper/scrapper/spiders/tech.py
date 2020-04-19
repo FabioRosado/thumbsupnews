@@ -23,7 +23,7 @@ class TechCrunchScrapper(XMLFeedSpider):
     def parse_node(self, response, node):
 
         if is_todays_article(node):
-            title = node.xpath('title/text()').get()
+            title = node.xpath('title/text()').get().replace('- CNET', '').strip()
             
             description = remove_html(node.xpath('description/text()').get())
 

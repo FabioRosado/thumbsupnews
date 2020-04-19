@@ -30,6 +30,6 @@ def transform_date(date):
 def remove_html(description):
     try:
         plain_text = re.sub('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});|\\n|\\t|\[|\]', '', description)
+        return plain_text.replace('"', "'").strip()
     except Exception:
-        plain_text = description
-    return plain_text.replace('"', "'").strip()
+        return description
