@@ -93,5 +93,16 @@
       grid-template-columns: 1fr;
     }
   }
+}
 
+.move-top {
+  border: 1px solid gainsboro;
+  position: fixed;
+  z-index: 10;
+  right: .5rem;
+  bottom: 5rem;
+  background-color: white;
+  padding: .25rem;
+  font-size: medium;
+  display: flex;
 }
