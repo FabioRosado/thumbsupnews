@@ -1,18 +1,23 @@
 import React, { useState } from "react"
 import fetch from "isomorphic-unfetch"
-import useSwr from 'swr'
 
 import Layout from "../components/layout"
 import Card from "../components/card"
 
-const fetcher = url => fetch(url).then(res => res.json())
-
 
 function Index(props) {
   const [data, setData ] = useState(props.data)
+  const pages = Array.from(Array(Math.round(data.count/24)).keys());
 
   const category = item => {
     fetch('/api/get-category', {method: 'POST', body: item})
+      .then(results => results.json())
+      .then(r => setData(r))
+      .catch(error => console.log(error))
+  }
+
+  const pagination = page => {
+    fetch('/api/get-page', {method: 'POST', 'body': page})
       .then(results => results.json())
       .then(r => setData(r))
       .catch(error => console.log(error))
@@ -42,7 +47,7 @@ function Index(props) {
             <li><button className="sidebar-menu-item" onClick={() => category("Health")}>Health</button></li>
             <li><button className="sidebar-menu-item" onClick={() => category("Weird")}>Weird</button></li>
           </ul>
-          <p className="sidebar-header text-sm">Location</p>
+          <p className="sidebar-header text-sm ml-8">Location</p>
           <ul className="my-5 side-menu text-lg">
             <li><button className="sidebar-menu-item" onClick={() => category("World")}>World</button></li>
             <li><button className="sidebar-menu-item" onClick={() => category("US")}>US</button></li>
@@ -56,7 +61,21 @@ function Index(props) {
         <div className="main-content">
         {data.results.map(article => <Card headline={article} key={article.id} />)}
         
-        <a href="#top" className="move-top"><i className="gg-chevron-up mr-1" /></a>
+          <a href="#top" className="move-top"><i className="gg-chevron-up mr-1" /></a>
+          <div className="pagination">
+          {pages.map(page => {
+              let url = ''
+              if (data.next) {
+                url = data.next.replace(/page=\d/gi, `page=${page+1}`)
+              } 
+
+              if (data.previous && !data.next) {
+                url = data.previous.replace(/page=\d/gi, `page=${page+1}`)
+              }
+
+              return <a href="#top" key={page} className="link" onClick={() => pagination(url)}>{page+1}</a>
+          })}
+        </div>
         </div>
       </div>
     </Layout>

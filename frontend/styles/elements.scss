@@ -79,7 +79,9 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1.5rem;
-    padding: 2rem;
+    padding: 2rem 2rem 3.5rem 2rem;
+    margin-bottom: 1rem;
+    position: relative;
 
     @media (min-width:1200px) and (max-width:1500px) {
       grid-template-columns: repeat(3, 1fr);
@@ -96,7 +98,7 @@
 }
 
 .move-top {
-  border: 1px solid gainsboro;
+  border: 1px solid $bgray-lightest;
   position: fixed;
   z-index: 10;
   right: .5rem;
@@ -105,4 +107,32 @@
   padding: .25rem;
   font-size: medium;
   display: flex;
+}
+
+.pagination {
+  position: absolute;
+  bottom: .02rem;
+  left: 1.5rem;
+
+  @media (max-width: 899px) {
+    left: 0rem;
+    position: relative;
+  }
+  .link {
+    border: 1px solid $bgray-lightest;
+    background-color: white;
+    padding: .25rem;
+    font-size: medium;
+    margin: .25rem;
+    width: 2rem;
+    display: inline-block;
+    text-align: center;
+    transition: all, ease-in-out, 1s;
+
+    &:hover {
+      border-color: $pink;
+      color: $blue-dark;
+      transition: all, ease-in-out, .5s;
+    }
+  }
 }
