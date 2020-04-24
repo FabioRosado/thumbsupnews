@@ -27,6 +27,14 @@
   padding: 4rem;
   border-right: 1px solid $blue-dark;
 
+  .menu-button {
+    visibility: visible;
+    padding: 1rem;
+    position: absolute;
+    top: 2.3rem;
+    right: .5rem;
+  }
+
   @media (min-width: 765px) {
     position: relative;
     background: none;
@@ -38,7 +46,12 @@
     padding: 0rem;
     border: none;
 
+    .menu-button {
+      visibility: hidden;
+    }
+
   }
+
 }
 
 .navbar-show {
