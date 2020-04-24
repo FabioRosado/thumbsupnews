@@ -5,17 +5,18 @@ import requests
 import time
 
 
-print("Starting to run scrapper to get todays feeds...")
+print("Adding scrapped news to the dataset...")
+with open('../classifier/datasets/new_classified_news.csv','a') as dataset:
+    with jsonlines.open('../scrapper/news.jl') as reader:
+        for item in reader.iter(type=dict, skip_invalid=True):
+            dataset.write(f"{item['title']},{item['sentiment']}\n")
 
-subprocess.call(["python", "../scrapper/run_spiders.py"])
-
-print("Done scrapping todays feeds. Starting to push them to the database...")
 
 with jsonlines.open('../scrapper/news.jl') as reader:
     for line in reader:
         r = requests.post('http://localhost:8000/headlines/',
-                          headers={'Authorization': f"Token {os.environ['DJANGO_TOKEN']}"},
-                          data=line)
+                        headers={'Authorization': f"Token {os.environ['DJANGO_TOKEN']}"},
+                        data=line)
 
 print("Done uploading todays headlines to backend. Removing file...")
 
