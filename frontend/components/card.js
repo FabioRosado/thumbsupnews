@@ -1,7 +1,10 @@
 import React from "react"
 import Icon from '../images/icon.svg'
 
-const Card = ({headline}) => (
+const Card = ({headline}) => {
+  const description = headline.description.substring(0, 250)
+
+  return (      
   <article className="card">
     <header>
     <a href={headline.link}>
@@ -14,7 +17,7 @@ const Card = ({headline}) => (
     </header>
     <div className="h-full">
       <a href={headline.link}>
-      <p className="text-sm">{headline.description.substring(0, 250)}...</p>
+      <p className="text-sm">{description.replace(/\W$/, '')}... Read More</p>
       </a>
     </div>
     <footer className="text-xs flex justify-between">
@@ -22,6 +25,6 @@ const Card = ({headline}) => (
       <p className="source">{headline.source}</p>
     </footer>
   </article>
-);
+  )};
 
 export default Card
