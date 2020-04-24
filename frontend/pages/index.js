@@ -29,32 +29,32 @@ function Index(props) {
         <div className="sidebar border-right h-screen p-8">
           <p className="sidebar-header text-sm">Categories</p>
           <ul className="my-5 side-menu text-lg">
-            <li><button className="sidebar-menu-item" onClick={() => category("")}>All</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Business")}>Business</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Commodities")}>Commodities</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Entertainment")}>Entertainment</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Lifestyle")}>Lifestyle</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Markets")}>Markets</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Tech")}>Tech</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Streetwise")}>Streetwise</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Security")}>Security</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Science")}>Science</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Rumble Seat")}>Rumble Seat</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Political")}>Political</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Travel")}>Travel</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Stocks")}>Stocks</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Money")}>Money</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Health")}>Health</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Weird")}>Weird</button></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("")}>All</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Business")}>Business</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Commodities")}>Commodities</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Entertainment")}>Entertainment</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Lifestyle")}>Lifestyle</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Markets")}>Markets</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Tech")}>Tech</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Streetwise")}>Streetwise</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Security")}>Security</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Science")}>Science</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Rumble Seat")}>Rumble Seat</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Political")}>Political</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Travel")}>Travel</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Stocks")}>Stocks</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Money")}>Money</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Health")}>Health</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Weird")}>Weird</a></li>
           </ul>
           <p className="sidebar-header text-sm ml-8">Location</p>
           <ul className="my-5 side-menu text-lg">
-            <li><button className="sidebar-menu-item" onClick={() => category("World")}>World</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("US")}>US</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("UK")}>UK</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Africa")}>Africa</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("China")}>China</button></li>
-            <li><button className="sidebar-menu-item" onClick={() => category("Russia")}>Russia</button></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("World")}>World</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("US")}>US</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("UK")}>UK</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Africa")}>Africa</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("China")}>China</a></li>
+            <li><a className="sidebar-menu-item" onClick={() => category("Russia")}>Russia</a></li>
           </ul>
         </div>
 
