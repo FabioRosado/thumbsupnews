@@ -17,7 +17,7 @@ const Card = ({headline}) => {
     </header>
     <div className="h-full">
       <a href={headline.link}>
-      <p className="text-sm">{description.replace(/\W$/, '')}... Read More</p>
+      <p className="text-sm">{description.replace(/\W$/, '')}... | Read More</p>
       </a>
     </div>
     <footer className="text-xs flex justify-between">

@@ -15,17 +15,17 @@
   }
 }
 
-
 .navbar {
   display: flex;
   flex-direction: column;
-  
+  transform: translate(-100%);
   position: fixed;
   background-color: white;
   top: 0rem;
   height: 100%;
   z-index: 10;
   padding: 4rem;
+  border-right: 1px solid $blue-dark;
 
   @media (min-width: 765px) {
     position: relative;
@@ -36,18 +36,21 @@
     transform: translatex(0%) !important;
     align-items: center;
     padding: 0rem;
+    border: none;
 
   }
-  
-  transform: translate(-100%);
 }
 
 .navbar-show {
-  transform: translateX(0%) !important;
+  transform: translateX(-10%) !important;
   transition: all .25s ease 0s;
+
+  a {
+    margin-top: .5rem;
+  }
 }
 
 .navbar-hide {
-  transform: translate(-100%);
+  transform: translate(-110%);
   transition: all .25s ease 0s;
 }

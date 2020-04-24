@@ -11,7 +11,7 @@ const Header = () => {
    <Link href="/" >
      <a><img src={Logo} alt="Thumbs Up News" width="250px" /></a>
    </Link>
-  <button className="visible md:invisible" onClick={() => setShow(!show)}><i className="gg-menu-right" /></button>
+  <button className="visible md:invisible p-5" onClick={() => setShow(!show)}><i className="gg-menu-right" /></button>
    <nav className={show ? "navbar navbar-show" : "navbar navbar-hide"}>
      <Link href="/"><a className="mr-5 nav-link">Home</a></Link>
      <Link href="/about"><a className="mr-5 nav-link">About</a></Link>
