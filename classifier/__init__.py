@@ -2,7 +2,6 @@ import os
 import re
 import nltk
 import pickle
-import jsonlines
 
 from nltk.classify import NaiveBayesClassifier
 from nltk.classify import accuracy
@@ -35,28 +34,31 @@ class NewsHeadlineClassifier:
         }
 
     def _read_csv(self):
-        with open(os.path.join(ROOT, 'classifier', '/datasets', '/new_classified_news.csv'), 'r') as input_csv:
+        with open(os.path.join(ROOT, 'classifier', 'datasets', 'tt.csv'), 'r') as input_csv:
             for item in input_csv:
                 item = item.split(',')
                 doc, label = re.findall('\w+', ''.join(item[:-1]).lower()), item[-1].strip()
 
                 if label == 'positive':
-                    self.positive_headlines.append([self.format_sentence(' '.join(doc).lower()), 'positive'])
+                    self.positive_headlines.append([self.format_sentence(' '.join(doc)), 'positive'])
                 else: 
-                    self.negative_headlines.append([self.format_sentence(' '.join(doc).lower()), 'negative'])
+                    self.negative_headlines.append([self.format_sentence(' '.join(doc)), 'negative'])
         print("Positive: {} \n Negative: {} \n\n\n".format(len(self.positive_headlines), len(self.negative_headlines)))
 
     def _train_classifier(self):
         """Use 80% of tweets to train a classifier."""
         self._read_csv()
+        
+        print(self.positive_headlines[:5])
 
         training = self.positive_headlines[:int(.8 * len(self.positive_headlines))] + \
             self.negative_headlines[:int(.8 * len(self.negative_headlines))]
 
         testing = self.negative_headlines[int(.8 * len(self.positive_headlines)):] + \
             self.negative_headlines[int(.8 * len(self.negative_headlines)):]
-
         print("Training Classifier...")
+        
+        print(training[:5])
 
         classifier = NaiveBayesClassifier.train(training)
         print(f"Classifier trained with "
@@ -86,17 +88,3 @@ class NewsHeadlineClassifier:
     def load_classifier(self):
         with open(os.path.join(ROOT,'classifier/', "news.pickle"), "rb") as loaded_classifier:
             return pickle.load(loaded_classifier)
-
-
-# classifier = NewsHeadlineClassifier()
-
-# with jsonlines.open('../scrapper/news.jl') as news:
-#     for headline in news.iter(type=dict, skip_invalid=True):
-#         score = classifier.classify(headline['title'])
-#         print(f"{headline['title']} -- {score}")
-        
-# with open('./datasets/new_classified_news.csv', 'w') as classified:
-#     with open('./datasets/news.csv') as news:
-#         for headline in news.readlines():
-#             sentiment = classifier.classify(headline)
-#             classified.write("{},{}\n".format(headline.rstrip(), sentiment))
