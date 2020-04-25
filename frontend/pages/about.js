@@ -5,19 +5,19 @@ import Layout from "../components/layout"
 export default function About() {
   return (
     <Layout>
-      <div className="my-8 mx-56">
+      <div className="my-8 mx-64 px-48">
         <h1 className="text-3xl">What & Why</h1>
-        <p className="my-5">Thumbs Up News aims to filter news from different news publishers and show only the news that are positive in some nature. </p>
+        <p className="my-5">Thumbs Up News aims to filter news from different news publishers and show only positive or neutral news.</p>
         <p className="mb-5">
           This project was created when the COVID-19 pandemic started and all you could see daily was bad news, it was pretty hard to filter
-          news to see only positive ones and around this pandemic period it seemed even more important to try and filter the news articles to
+          news to see only positive ones and around this pandemic period, it seemed even more important to try and filter the news articles to
           try and get only positive ones. 
         </p>
 
         <h1 className="text-3xl">How</h1>
         <p className="my-5">
           We are using the RSS Feeds from news publishers to get our headlines, then we run the classifier to get a classification of the headline to see
-          if that headline is a positive or a negative one. Then we put the headlines into the database and use django as the backend and nextjs as the frontend. 
+          if that headline is a positive or a negative one. Then we put the headlines into the database and use Django as the backend and Nextjs as the frontend. 
         </p>
         <h2 className="text-xl">Classifier</h2>
         <p className="my-5">
@@ -30,7 +30,7 @@ export default function About() {
             <a className="nav-link active-link" href="https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews">IMDB Dataset of 50K Movie Reviews</a>(Andrew L. Maas, Raymond E. Daly, Peter T. Pham, Dan Huang, Andrew Y. Ng, and Christopher Potts. (2011)).
           </li>
           <li className="list-disc mb-3">
-            <a className="nav-link active-link" href="https://www.kaggle.com/uciml/news-aggregator-dataset">News Aggregator Dataset</a> - Lichman, M. (2013). UCI Machine Learning Repository <a href="http://archive.ics.uci.edu/ml" className="nav-link active-link">http://archive.ics.uci.edu/ml</a>. Irvine, CA: University of California, School of Information and Computer Science. - This specific dataset can be found in the <a className="nav-link active-link" href="http://archive.ics.uci.edu/ml/datasets/News+Aggregator">UCI ML Repository.</a>
+            <a className="nav-link active-link" href="https://www.kaggle.com/uciml/news-aggregator-dataset">UCI News Aggregator Dataset</a> - Lichman, M. (2013). UCI Machine Learning Repository <a href="http://archive.ics.uci.edu/ml" className="nav-link active-link">http://archive.ics.uci.edu/ml</a>. Irvine, CA: University of California, School of Information and Computer Science. - This specific dataset can be found in the <a className="nav-link active-link" href="http://archive.ics.uci.edu/ml/datasets/News+Aggregator">UCI ML Repository.</a>
           </li>
           <li className="list-disc mb-3">
             NLTK Sentiment Vader Analiser - <a className="nav-link active-link" href="https://www.nltk.org/api/nltk.sentiment.html?highlight=sentimentintensityanalyzer#nltk.sentiment.vader.SentimentIntensityAnalyzer">NLTK Documentation</a> 
@@ -40,15 +40,23 @@ export default function About() {
           </li>
         </ul>
 
+        <p className="my-5">
+        Our categories classifier is currently running on a 59% accuracy. The classifier was trained with different amounts of data on each category so the data fed to the classifier isn't balanced and that's why the accuracy is affected. 
+        We will be feeding more data to the dataset used and then retrain the classifier once we have a large enough dataset.
+        </p>
+
         <p className="my-5">To train the category classifier we used the following resources:</p>
         <ul>
           <li className="list-disc mb-5">
             <a className="nav-link active-link" href="https://www.kaggle.com/rmisra/news-category-dataset/data">News Category Dataset</a> (Rishabh Misra - <a className="nav-link active-link" href="https://rishabhmisra.github.io/publications/">publications</a>).
           </li>
+          <li className="list-disc mb-3">
+            <a className="nav-link active-link" href="https://www.kaggle.com/uciml/news-aggregator-dataset">UCI News Aggregator Dataset</a> - Lichman, M. (2013). UCI Machine Learning Repository <a href="http://archive.ics.uci.edu/ml" className="nav-link active-link">http://archive.ics.uci.edu/ml</a>. Irvine, CA: University of California, School of Information and Computer Science. - This specific dataset can be found in the <a className="nav-link active-link" href="http://archive.ics.uci.edu/ml/datasets/News+Aggregator">UCI ML Repository.</a>
+          </li>
         </ul>
 
         <h2 className="text-xl">Scrapper</h2>
-        <p className="my-5">For the scrapper we are using the python library <a className="nav-link active-link" href="https://scrapy.org/">Scrapy</a> to read the RSS feed and save the data from the feed. We are collecting the title, description, category and source.</p>
+        <p className="my-5">For the scrapper, we are using the python library <a className="nav-link active-link" href="https://scrapy.org/">Scrapy</a> to read the RSS feed and save the data from the feed. We are collecting the title, description, category and source.</p>
         <p className="mb-5">We are using the RSS feeds from the  following news publishers:</p>
         <ul>
           <li className="list-disc mb-5">
@@ -101,8 +109,8 @@ export default function About() {
         <h2 className="text-xl">Structure</h2>
         <p className="my-5">
           Thumbs Up Projects uses <a className="nav-link active-link" href="https://www.djangoproject.com/">Django</a> 
-          for the backend and uses the <a className="nav-link active-link" href="https://www.django-rest-framework.org/">Django Rest Framework</a> 
-          to generate the API to be called by the frontend. The frontend uses <a className="nav-link active-link" href="https://nextjs.org/">NextJS</a>.
+           for the backend and uses the <a className="nav-link active-link" href="https://www.django-rest-framework.org/">Django Rest Framework</a> 
+           to generate the API to be called by the frontend. The frontend uses <a className="nav-link active-link" href="https://nextjs.org/">NextJS</a>.
         </p>
 
         <p className="mb-5">
@@ -125,7 +133,6 @@ export default function About() {
           <a className="nav-link active-link" href="https://www.twitch.tv/theflyingdev">Twitch - TheFlyingDev</a> 
         </li>
       </ul>
-      
         </div>
     </Layout>
   );
