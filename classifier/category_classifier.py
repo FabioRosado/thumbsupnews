@@ -1,5 +1,6 @@
 import os
 import re
+import csv
 import itertools
 import nltk
 import jsonlines
@@ -56,35 +57,81 @@ class CategoryClassifier:
 
     def _read_dataset(self):
         """Open news dataset and divides contents by category."""
+        print("Opening dataset News Category Dataset v2 (200k entries) and splitting data...")
         with jsonlines.open(os.path.join(ROOT, 'classifier', 'datasets', 'News_Category_Dataset_v2.json')) as news:
             for item in news.iter(type=dict, skip_invalid=True):
                 cat = item['category'].lower()
 
                 if 'style' in cat or 'home' in cat:
                     self.categories['lifestyle'].append(
-                            [self.format_sentence(item['headline'].lower()), cat]
+                            [self.format_sentence(item['headline'].lower()), 'lifestyle']
+                            )
+                    self.categories['lifestyle'].append(
+                            [self.format_sentence(item['short_description'].lower()), 'lifestyle']
                             )
 
                 if 'food' in cat or 'taste' in cat:
                     self.categories['food'].append(
                             [self.format_sentence(item['headline'].lower()), 'food']
                             )
+                    self.categories['food'].append(
+                            [self.format_sentence(item['short_description'].lower()), 'food']
+                            )
 
                 if 'art' in cat:
                     self.categories['arts'].append(
                             [self.format_sentence(item['headline'].lower()), 'arts']
+                            )
+                    self.categories['arts'].append(
+                            [self.format_sentence(item['short_description'].lower()), 'arts']
                             )
 
                 if 'healthy' in cat:
                     self.categories['health'].append(
                             [self.format_sentence(item['headline'].lower()), 'health']
                             )
+                    self.categories['health'].append(
+                            [self.format_sentence(item['short_description'].lower()), 'health']
+                            )
 
                 if cat in self.categories.keys():
                     self.categories[cat].append(
                             [self.format_sentence(item['headline'].lower()), cat]
                            )
+                    self.categories[cat].append(
+                            [self.format_sentence(item['short_description'].lower()), cat]
+                            )
 
+        print("Done splitting data. Opening UCI News Aggregator (400k entries) and splitting data...")
+        
+        with open(os.path.join(ROOT, 'classifier', 'datasets', 'uci-news-aggregator.csv'),) as input_csv:
+            news_reader = csv.reader(input_csv, delimiter =",")
+            for row in news_reader:
+                if row[4] == 'b':
+                    self.categories['business'].append(
+                        [self.format_sentence(row[1].lower()), 'business']
+                    )
+                
+                if row[4] == 't':
+                    self.categories['tech'].append(
+                        [self.format_sentence(row[1].lower()), 'tech']
+                    )
+
+                if row[4] == 'e':
+                    self.categories['entertainment'].append(
+                        [self.format_sentence(row[1].lower()), 'entertainment']
+                    )
+                if row[4] == 'm':
+                    self.categories['health'].append(
+                        [self.format_sentence(row[1].lower()), 'health']
+                    )
+        print("Done splitting ")
+
+
+    def get_dataset_numbers(self):
+        for key, value in self.categories.items():
+            print(f"{key}: {len(value)}")
+    
     def _train_classifier(self):
         """Use 80% of hedlines to train a classifier."""
         self._read_dataset()
@@ -107,9 +154,9 @@ class CategoryClassifier:
         return classified
 
     def save_classifier(self, classifier):
-        with open(os.path.join(ROOT, 'category.pickle'), 'wb') as save_classifier:
+        with open(os.path.join(ROOT, 'datasets', 'category.pickle'), 'wb') as save_classifier:
             pickle.dump(classifier, save_classifier)
 
     def load_classifier(self):
-        with open(os.path.join(ROOT, 'category.pickle'), 'rb') as loaded_classifier:
+        with open(os.path.join(ROOT, 'datasets', 'category.pickle'), 'rb') as loaded_classifier:
             return pickle.load(loaded_classifier)

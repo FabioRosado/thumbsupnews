@@ -48,8 +48,6 @@ class NewsHeadlineClassifier:
     def _train_classifier(self):
         """Use 80% of tweets to train a classifier."""
         self._read_csv()
-        
-        print(self.positive_headlines[:5])
 
         training = self.positive_headlines[:int(.8 * len(self.positive_headlines))] + \
             self.negative_headlines[:int(.8 * len(self.negative_headlines))]
@@ -82,9 +80,9 @@ class NewsHeadlineClassifier:
         return 'negative'
 
     def save_classifier(self, classifier):
-        with open(os.path.join(ROOT, 'news.pickle'), 'wb') as save_classifier:
+        with open(os.path.join(ROOT, 'classifier', 'news.pickle'), 'wb') as save_classifier:
             pickle.dump(classifier, save_classifier)
 
     def load_classifier(self):
-        with open(os.path.join(ROOT,'classifier/', "news.pickle"), "rb") as loaded_classifier:
+        with open(os.path.join(ROOT,'classifier', "news.pickle"), "rb") as loaded_classifier:
             return pickle.load(loaded_classifier)
