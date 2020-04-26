@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import contextlib
 import scrapy
 from scrapy.spiders import XMLFeedSpider
-from classifier import NewsHeadlineClassifier
+from classifier import NewsHeadlineClassifier, CategoryClassifier
 
 from .helper import is_todays_article, transform_date, remove_html
 
@@ -20,29 +21,33 @@ class CNNScrapper(XMLFeedSpider):
     itertag = 'item'
 
     def __init__(self):
-        self.classifier = NewsHeadlineClassifier()
+        self.sentiment_classifier = NewsHeadlineClassifier()
+        self.category_classifier = CategoryClassifier()
+        self.title = ''
 
-    def parse_node(self, response, node):
+    def get_category(self, response, title):
         feed_type = response.url.split('/')[-1].replace('.rss', '')
         category = feed_type.replace('edition_', '').title()
         
-        if not category:
-            category = "World"
+        if category == "Edition":
+            return self.category_classifier(title)
+        return category
+
+    def parse_node(self, response, node):
         
         if is_todays_article(node):
-            title = node.xpath('title/text()').get().strip()
+            self.title = node.xpath('title/text()').get().strip()
             
-            try: 
+            
+            with contextlib.suppress(TypeError): 
                 description = remove_html(node.xpath('description/text()').get())
-            except TypeError:
-                description = ''
 
             yield {
-                "title": title,
+                "title": self.title,
                 "link": node.xpath('link/text()').get().strip(),
                 "description": description,
                 "date": transform_date(node.xpath('pubDate/text()').get()),
-                "categories": category,
+                "categories": self.get_category(response, self.title),
                 "source": "CNN",
-                "sentiment": self.classifier.classify(title)
+                "sentiment": self.classifier.classify(self.title)
             }

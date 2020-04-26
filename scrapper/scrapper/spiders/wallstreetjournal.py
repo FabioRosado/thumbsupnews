@@ -2,7 +2,7 @@
 import scrapy
 from scrapy import Selector
 from scrapy.spiders import XMLFeedSpider
-from classifier import NewsHeadlineClassifier
+from classifier import NewsHeadlineClassifier, CategoryClassifier
 
 from .helper import is_todays_article, transform_date, remove_html
 
@@ -18,6 +18,7 @@ def get_categories(categories):
 
     if category == 'Half Full':
         return "Entertainment"
+    return category
 
 
 class WallstreetJournalScrapper(XMLFeedSpider):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.spiders import XMLFeedSpider
-from classifier import NewsHeadlineClassifier
+from classifier import NewsHeadlineClassifier, CategoryClassifier
 
 from .helper import is_todays_article, transform_date, remove_html
 
@@ -20,18 +20,29 @@ class SkyNewsScrapper(XMLFeedSpider):
     itertag = 'item'
     
     def __init__(self):
-        self.classifier = NewsHeadlineClassifier()
+        self.sentiment_classifier = NewsHeadlineClassifier()
+        self.category_classifier = CategoryClassifier()
+        self.title = ''
+    
+    def get_category(self, node, classifier):
+        category = node.xpath('//channel/title/text()').get().split(" News")[0]
+        
+        if category.lower() in ['uk', 'world', 'us']:
+           return classifier.classify(self.title) 
+
+        return category
 
     def parse_node(self, response, node):
-        title = node.xpath('//channel/title/text()').get()
+        self.title = node.xpath('title/text()').get().strip()
+
         if is_todays_article(node):
             yield {
-                "title": node.xpath('title/text()').get().strip(),
+                "title": self.title,
                 "link": node.xpath('link/text()').get().strip(),
                 "description": remove_html(node.xpath('description/text()').get()),
                 "date": transform_date(node.xpath('pubDate/text()').get()),
-                "categories": node.xpath('//channel/title/text()').get().split(" News")[0],
+                "categories": self.get_category(node, self.category_classifier),
                 "source": "Sky News",
-                "sentiment": self.classifier.classify(title)
+                "sentiment": self.sentiment_classifier.classify(self.title)
             }
  

@@ -7,21 +7,8 @@ from scrapy.loader import ItemLoader
 
 from .helper import is_todays_article, transform_date, remove_html
 
-from classifier import NewsHeadlineClassifier
+from classifier import NewsHeadlineClassifier, CategoryClassifier
 
-def get_source(source):
-    return re.findall(r'Mail Online|Yahoo News|Techworld|CNET News', ', '.join(source))[0]
-
-def get_categories(category):
-    if 'Mail Online' in category:
-        return category.split(' | ')[0]
-    
-    if 'CNET News' in category or 'Techworld' in category:
-        return 'Tech'
-    
-    if 'Yahoo News' in category:
-        return category.split(' - ')[1]
-    
 
 class RSSScrapper(XMLFeedSpider):
     name = 'rss'
@@ -34,18 +21,21 @@ class RSSScrapper(XMLFeedSpider):
     itertag = 'item'
 
     def __init__(self):
-        self.classifier = NewsHeadlineClassifier()
+        self.sentiment_classifier = NewsHeadlineClassifier()
+        self.category_classifier = CategoryClassifier()
+    
+    def get_source(self, source):
+        return re.findall(r'Mail Online|Yahoo News|Techworld|CNET News', ', '.join(source))[0]
 
     def parse_node(self, response, node):
         if is_todays_article(node):
-            title = node.xpath('title/text()').get().strip()
+            title = node.xpath('title/text()').get().strip().replace('- CNET', '')
             yield {
                 "title": title,
                 "link": node.xpath('link/text()').get().strip(),
                 "description": remove_html(node.xpath('description/text()').get()),
                 "date": transform_date(node.xpath('pubDate/text()').get()),
-                "categories": get_categories(node.xpath('//channel/title/text()').get()),
-                "source": get_source(node.xpath('//channel/title/text()').getall()),
-                "sentiment": self.classifier.classify(title)
+                "categories": self.category_classifier.classify(title),
+                "source": self.get_source(node.xpath('//channel/title/text()').getall()),
+                "sentiment": self.sentiment_classifier.classify(title)
             }
-
