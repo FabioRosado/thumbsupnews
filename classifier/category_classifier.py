@@ -40,9 +40,9 @@ class CategoryClassifier:
                 "impact": [],
          }
         try: 
-            print("Loading classifier...")
+            print("Loading category classifier...")
             self.classifier = self.load_classifier()
-            print("Classifier loaded!")
+            print("Category classifier loaded!")
         except FileNotFoundError:
             print("No classifier found, opening dataset and will train new classifier.")
             self.classifier = self._train_classifier()
@@ -154,9 +154,9 @@ class CategoryClassifier:
         return classified
 
     def save_classifier(self, classifier):
-        with open(os.path.join(ROOT, 'datasets', 'category.pickle'), 'wb') as save_classifier:
+        with open(os.path.join(ROOT, 'classifier', 'category.pickle'), 'wb') as save_classifier:
             pickle.dump(classifier, save_classifier)
 
     def load_classifier(self):
-        with open(os.path.join(ROOT, 'datasets', 'category.pickle'), 'rb') as loaded_classifier:
+        with open(os.path.join(ROOT, 'classifier', 'category.pickle'), 'rb') as loaded_classifier:
             return pickle.load(loaded_classifier)

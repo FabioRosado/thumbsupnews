@@ -9,6 +9,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize.regexp import regexp_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+from classifier.category_classifier import CategoryClassifier
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -17,9 +19,9 @@ class NewsHeadlineClassifier:
         self.positive_headlines = list()
         self.negative_headlines = list()
         try:
-            print("Loading classifier...")
+            print("Loading sentiment classifier...")
             self.classifier = self.load_classifier()
-            print(f"Classifier loaded...")
+            print(f"Sentiment classifier loaded...")
         except FileNotFoundError:
             print(f"No classifier found, opening dataset and will train new classifier.")
             self.classifier = self._train_classifier()
@@ -84,5 +86,5 @@ class NewsHeadlineClassifier:
             pickle.dump(classifier, save_classifier)
 
     def load_classifier(self):
-        with open(os.path.join(ROOT,'classifier', "news.pickle"), "rb") as loaded_classifier:
+        with open(os.path.join(ROOT, 'classifier', "news.pickle"), "rb") as loaded_classifier:
             return pickle.load(loaded_classifier)
