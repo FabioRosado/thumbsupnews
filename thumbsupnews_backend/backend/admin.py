@@ -1,6 +1,6 @@
 from django.contrib import admin
 from rest_framework.authtoken.admin import TokenAdmin
-from .models import Headline
+from .models import Headline, Contact
 
 # Register your models here.
 TokenAdmin.raw_id_fields = ['user']
@@ -13,5 +13,10 @@ class HeadlineAdmin(admin.ModelAdmin):
     list_display = ['title', 'categories', 'sentiment', 'is_positive', 'date']
     list_filter = ['date']
     actions = [make_positive]
+    ordering = ['-date']
+
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'message']
 
 admin.site.register(Headline, HeadlineAdmin)
+admin.site.register(Contact, ContactAdmin)
