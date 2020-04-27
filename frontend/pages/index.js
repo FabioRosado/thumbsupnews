@@ -47,15 +47,6 @@ function Index(props) {
             <li><a className="sidebar-menu-item" onClick={() => category("Health")}>Health</a></li>
             <li><a className="sidebar-menu-item" onClick={() => category("Weird")}>Weird</a></li>
           </ul>
-          <p className="sidebar-header text-sm ml-8">Location</p>
-          <ul className="my-5 side-menu text-lg">
-            <li><a className="sidebar-menu-item" onClick={() => category("World")}>World</a></li>
-            <li><a className="sidebar-menu-item" onClick={() => category("US")}>US</a></li>
-            <li><a className="sidebar-menu-item" onClick={() => category("UK")}>UK</a></li>
-            <li><a className="sidebar-menu-item" onClick={() => category("Africa")}>Africa</a></li>
-            <li><a className="sidebar-menu-item" onClick={() => category("China")}>China</a></li>
-            <li><a className="sidebar-menu-item" onClick={() => category("Russia")}>Russia</a></li>
-          </ul>
         </div>
 
         <div className="main-content">
