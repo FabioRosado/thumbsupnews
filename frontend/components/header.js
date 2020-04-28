@@ -13,7 +13,7 @@ const Header = () => {
     </Link>
     <button aria-label="Toggle Navigation Menu" className="visible md:invisible p-5" onClick={() => setShow(!show)}><i className="gg-menu-right" /></button>
     <nav className={show ? "navbar navbar-show" : "navbar navbar-hide"}>
-      <button aria-label="Close Nagivation Menu" onClick={() => setShow(False)} className="menu-button"><i className="gg-close" /></button>
+      <button aria-label="Close Nagivation Menu" onClick={() => setShow(false)} className="menu-button"><i className="gg-close" /></button>
       <Link href="/"><a className="mr-5 nav-link">Home</a></Link>
       <Link href="/about"><a className="mr-5 nav-link">About</a></Link>
       <Link href="/contacts"><a className="mr-5 nav-link">Contacts</a></Link>

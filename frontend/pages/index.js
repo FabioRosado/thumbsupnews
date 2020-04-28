@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import fetch from "isomorphic-unfetch"
 
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 import Card from "../components/card"
 
 
@@ -25,6 +26,7 @@ function Index(props) {
   
   return (
     <Layout>
+    <SEO title="Home" />
       <div className="sidebar-main">
         <div className="sidebar border-right h-screen p-8">
           <p className="sidebar-header text-sm">Categories</p>

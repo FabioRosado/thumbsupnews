@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 export default function About() {
   return (
     <Layout>
-      <div className="my-8 mx-64 px-48">
+      <div className="my-8 mx-5 md:mx-24 md:px-24 xl:mx-64 xl:px-32">
         <h1 className="text-3xl">What & Why</h1>
         <p className="my-5">Thumbs Up News aims to filter news from different news publishers and show only positive or neutral news.</p>
         <p className="mb-5">

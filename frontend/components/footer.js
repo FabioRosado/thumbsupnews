@@ -9,6 +9,7 @@ const FooterComponent = () => (
       <Link href="/about"><a className="nav-link mr-5">About</a></Link>
       <a className="nav-link mr-5" href="https://github.com/FabioRosado/thumbsupnews">GitHub</a>
       <Link href="/contacts"><a className="nav-link mr-5">Contacts</a></Link>
+      <Link href="/donate"><a className="nav-link mr-5">Donate</a></Link>
     </nav>
   </footer>  
 )

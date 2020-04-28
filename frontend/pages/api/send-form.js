@@ -10,7 +10,6 @@ export default async function (req, res) {
             method: "POST",
             body: req.body
         })
-
         return res.status(response.status).end(response.statusText)
     }
 }
