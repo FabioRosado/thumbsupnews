@@ -8,7 +8,7 @@ import Card from "../components/card"
 
 function Index(props) {
   const [data, setData ] = useState(props.data)
-  const pages = Array.from(Array(Math.round(data.count/24)).keys());
+  const pages = Array.from(Array(Math.round(data.count/24)).keys())
 
   const category = item => {
     fetch('/api/get-category', {method: 'POST', body: item})

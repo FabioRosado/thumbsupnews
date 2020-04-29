@@ -1,20 +1,24 @@
 
-
 .card {
+  opacity: 0;
   border: 1px solid;
   padding: 1rem;
   position: relative;
   display: flex;
   flex-direction: column;
+  animation: 1s linear forwards fadein;
   header {
     h1 {
       line-height: 25px;
     }
   }
 
-  body {
-    line-height: 20px;
+  &:hover {
+    box-shadow: 5px 10px 8px #36373754;
+    transform: scale(1.02);
+
   }
+
   .letter {
     position: absolute;
     font-size: 80px;
@@ -25,17 +29,48 @@
   }
 }
 
-$card-colors: $pink, $blue-light, $green, $bgray-light;
-$repeat: 24;
+.card-pink {
+  background-color: $pink;
+  border-color: darken($pink, 30%);
 
-@for $i from 1 through $repeat {
-    .card:nth-child(#{length($card-colors)}n+#{$i}) {
-      $random-color: nth($card-colors, random(length($card-colors)));
-      background-color: $random-color;
-      border-color: darken($random-color, 30%);
+  footer {
+    color: darken($pink, 30%);
+  }
+}
 
-      footer {
-        color: darken($random-color, 35%);
-      }
-    }
+.card-blue {
+  background-color: $blue-light;
+  border-color: darken($blue-light, 30%);
+
+  footer {
+    color: darken($blue-light, 30%);
+  }
+}
+
+.card-green {
+  background-color: $green;
+  border-color: darken($green, 30%);
+
+  footer {
+    color: darken($green, 30%);
+  }
+}
+
+.card-gray {
+  background-color: $bgray-light;
+  border-color: darken($bgray-light, 30%);
+
+  footer {
+    color: darken($bgray-light, 30%);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: .2;
+    
+  }
+  to {
+    opacity: 1;
+  }
 }

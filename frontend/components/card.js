@@ -4,8 +4,11 @@ import Icon from '../images/icon.svg'
 const Card = ({headline}) => {
   const description = headline.description.substring(0, 250)
 
+  const colors = ['gray', 'pink', 'green', 'blue']
+  const random = Math.floor(Math.random() * colors.length)
+
   return (      
-    <article className="card">
+    <article className={`card card-${colors[random]}`}>
       <header>
       <a href={headline.link}>
       <span className="letter">{headline.title.charAt(0)}</span>
