@@ -12,16 +12,15 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-
 RUN mkdir /thumbsupnews
 
 COPY requirements.txt /thumbsupnews
 
 RUN pip install -r /thumbsupnews/requirements.txt
 
-# COPY ./start /start
-# RUN sed -i 's/\r$//g' /start
-# RUN chmod +x /start
+COPY ./start /start
+RUN sed -i 's/\r$//g' /start
+RUN chmod +x /start
 
 WORKDIR /thumbsupnews
 
