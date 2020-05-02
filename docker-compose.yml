@@ -6,23 +6,31 @@ volumes:
 
 services:
   db:
-    image: postgres_name
-    build:
-      context: . # context
-      dockerfile: ./db/Dockerfile
+    restart: 
+      always
+    image: postgres
+    env_file:
+      - .env
     volumes:
       - local_postgres_data:/var/lib/postgresql/data # local_db_path to docker postgres data folder
       - local_postgres_data_backups:/backups # postgres backup db
-  web:
+    ports: 
+      - "5432"
+
+  backend:
+    links:
+      - db
+    image: thumbs_up_news_backend
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./thumbsupnews_backend/Dockerfile
+    env_file:
+      - .env
     depends_on:
       - db
-    command: /start
+    command: bash -c "python3 /thumbsupnews/thumbsupnews_backend/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/thumbsupnews
     ports:
       - "8000:8000"
-    image: thumbs_up_news
-    command: /start 
+    
