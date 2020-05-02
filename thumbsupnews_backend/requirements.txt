@@ -1,4 +1,0 @@
-django==3.0.4
-djangorestframework==3.11.0
-django-filter==2.2.0
-psycopg2==2.8.5

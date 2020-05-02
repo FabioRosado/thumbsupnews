@@ -28,9 +28,8 @@ services:
       - .env
     depends_on:
       - db
-    command: bash -c "python3 /thumbsupnews/thumbsupnews_backend/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python3  /thumbsupnews/thumbsupnews_backend/manage.py migrate && python3 /thumbsupnews/thumbsupnews_backend/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/thumbsupnews
     ports:
       - "8000:8000"
-    

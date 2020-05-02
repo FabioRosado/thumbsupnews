@@ -18,10 +18,6 @@ COPY requirements.txt /thumbsupnews
 
 RUN pip install -r /thumbsupnews/requirements.txt
 
-COPY ./start /start
-RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
-
 WORKDIR /thumbsupnews
 
 
