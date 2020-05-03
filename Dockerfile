@@ -19,10 +19,6 @@ RUN pip3 install --upgrade pip wheel
 
 RUN pip3 install -r /thumbsupnews/requirements.txt
 
-COPY ./start /start
-RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
-
 WORKDIR /thumbsupnews/thumbsupnews_backend
 
 COPY . /thumbsupnews

@@ -23,7 +23,7 @@ services:
     image: thumbs_up_news_backend
     build:
       context: .
-      dockerfile: ./thumbsupnews_backend/Dockerfile
+      dockerfile: ./Dockerfile
     env_file:
       - .env
     depends_on:
@@ -33,3 +33,16 @@ services:
       - .:/thumbsupnews
     ports:
       - "8000:8000"
+
+  frontend:
+    ports:
+      - 3000:3000
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    env_file:
+      - ./frontend/.env
+    command: npm run start
