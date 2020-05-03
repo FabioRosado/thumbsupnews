@@ -88,7 +88,7 @@ export async function getServerSideProps() {
     return {props: {data}}
   } catch(err) {
     console.log(err);
-    return {props: {} }
+    return {props: {data: {results: [], count: 1}} }
  }
 }
 

@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const withImages = require("next-images");
 const path = require("path");
+const withSass = require('@zeit/next-sass');
 const Dotenv = require("dotenv-webpack");
 
 let config = {
@@ -23,6 +24,7 @@ let config = {
   }
 };
 
-config = withImages(config)
+config = withImages(config);
+config = withSass(config);
 
 module.exports = config;
