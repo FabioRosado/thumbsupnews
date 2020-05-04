@@ -1,15 +1,15 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Thumbs Up News is a website that shows only positive news after being filtered by a machine learning algorithm.",
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["headlines", "news", "articles"],
+  "author": "FabioRosado",
   "license": "ISC",
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.2",

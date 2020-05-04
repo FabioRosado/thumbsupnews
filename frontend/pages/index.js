@@ -1,10 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import fetch from "isomorphic-unfetch"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Main from "../components/main"
-
 
 const Index = (props) =>
     <Layout>
