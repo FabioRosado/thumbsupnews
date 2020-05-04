@@ -13,7 +13,7 @@ export default Markets
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}&search=markets`, {
+    const res = await fetch(`${process.env.BACKEND_ROOT_URL}/markets/`, {
     headers: {
       "Authorization": `Token ${process.env.TOKEN}`
     }

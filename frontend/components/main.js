@@ -23,7 +23,6 @@ const Main = (props) => {
             <li><Link href="/category/art"><a className="sidebar-menu-item">Art</a></Link></li>
             <li><Link href="/category/business"><a className="sidebar-menu-item">Business</a></Link></li>
             <li><Link href="/category/comedy"><a className="sidebar-menu-item">Comedy</a></Link></li>
-            <li><Link href="/category/commodities"><a className="sidebar-menu-item">Commodities</a></Link></li>
             <li><Link href="/category/education"><a className="sidebar-menu-item">Education</a></Link></li>
             <li><Link href="/category/entertainment"><a className="sidebar-menu-item">Entertainment</a></Link></li>
             <li><Link href="/category/environment"><a className="sidebar-menu-item">Environment</a></Link></li>
@@ -32,13 +31,10 @@ const Main = (props) => {
             <li><Link href="/category/impact"><a className="sidebar-menu-item">Impact</a></Link></li>
             <li><Link href="/category/lifestyle"><a className="sidebar-menu-item">Lifestyle</a></Link></li>
             <li><Link href="/category/markets"><a className="sidebar-menu-item">Markets</a></Link></li>
-            <li><Link href="/category/money"><a className="sidebar-menu-item">Money</a></Link></li>
             <li><Link href="/category/parenting"><a className="sidebar-menu-item">Parenting</a></Link></li>
             <li><Link href="/category/political"><a className="sidebar-menu-item">Political</a></Link></li>
             <li><Link href="/category/religion"><a className="sidebar-menu-item">Religion</a></Link></li>
             <li><Link href="/category/science"><a className="sidebar-menu-item">Science</a></Link></li>
-            <li><Link href="/category/security"><a className="sidebar-menu-item">Security</a></Link></li>
-            <li><Link href="/category/stocks"><a className="sidebar-menu-item">Stocks</a></Link></li>
             <li><Link href="/category/tech"><a className="sidebar-menu-item">Tech</a></Link></li>
             <li><Link href="/category/travel"><a className="sidebar-menu-item">Travel</a></Link></li>
             <li><Link href="/category/weird"><a className="sidebar-menu-item">Weird</a></Link></li>
