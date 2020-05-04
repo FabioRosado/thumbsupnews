@@ -16,6 +16,7 @@ const Header = () => {
       <button aria-label="Close Nagivation Menu" onClick={() => setShow(false)} className="menu-button"><i className="gg-close" /></button>
       <Link href="/"><a className="mr-5 nav-link">Home</a></Link>
       <Link href="/about"><a className="mr-5 nav-link">About</a></Link>
+      <a className="mr-5 nav-link visible md:invisible"></a>
       <Link href="/contacts"><a className="mr-5 nav-link">Contacts</a></Link>
       <Link href="/subscribe"><a className="primary-button">Subscribe</a></Link>
     </nav>

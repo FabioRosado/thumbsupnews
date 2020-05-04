@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Link from "next/link"
+import Link from "./link.js"
 
 import Card from "./card"
 
