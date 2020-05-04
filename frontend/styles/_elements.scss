@@ -3,6 +3,8 @@
   color: $blue-dark;
   padding: .2rem .5rem;
   border: 1px solid $pink;
+  display: flex;
+  justify-content: center;
 
   &:hover, &:focus {
     background-color: $pink-lightest;

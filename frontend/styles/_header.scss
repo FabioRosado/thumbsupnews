@@ -57,6 +57,13 @@
 .navbar-show {
   transform: translateX(-10%) !important;
   transition: all .25s ease 0s;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar{
+    display: none;
+  }
 
   a {
     margin-top: .5rem;
@@ -66,4 +73,43 @@
 .navbar-hide {
   transform: translate(-110%);
   transition: all .25s ease 0s;
+}
+
+
+.hide {
+  animation: 1s linear .5s forwards scrollup;
+}
+
+.show {
+  opacity: 0;
+  animation: 1s linear forwards scrolldown;
+}
+
+@keyframes scrollup {
+  0% {
+    max-height: 100%;
+    opacity: 1;
+  }
+  50% {
+    max-height: 100%;
+    opacity: .5
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+@keyframes scrolldown {
+  0% {
+    max-height: 0;
+  }
+  50% {
+    max-height: 100%;
+    opacity: .5
+  }
+  100% {
+    max-height: auto;
+    opacity: 1;
+  }
 }
