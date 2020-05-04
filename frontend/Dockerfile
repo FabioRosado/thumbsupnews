@@ -2,7 +2,7 @@
 FROM node:12
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /thumbsupnews_frontend
 
 # Installing dependencies
 COPY package*.json ./
@@ -13,5 +13,5 @@ COPY . .
 
 # Building app
 # TODO: Re-enable when stable
-# RUN npm run build
+RUN npm run build
 EXPOSE 3000
