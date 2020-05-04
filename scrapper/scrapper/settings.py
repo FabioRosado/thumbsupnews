@@ -25,7 +25,7 @@ FEED_EXPORT_ENCODING='utf-8'
 ROBOTSTXT_OBEY = True
 
 FEED_FORMAT = 'jl'
-FEED_URI = 'news.jl'
+FEED = 'news.jl'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
