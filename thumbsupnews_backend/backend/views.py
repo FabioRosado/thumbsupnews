@@ -1,4 +1,5 @@
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -8,6 +9,14 @@ from rest_framework import mixins
 
 from backend.models import Headline, Contact
 from backend.serializers import HeadlineSerializer, ContactSerializer
+
+
+@method_decorator(cache_page(60*60*6), name="list")
+class MarketsList(viewsets.ModelViewSet):
+    queryset = Headline.objects.filter(
+        Q(categories__icontains='markets') | Q(categories__icontains='commodities') | Q(categories__icontains='money') | Q(categories__icontains='stocks')
+    )
+    serializer_class = HeadlineSerializer
 
 
 @method_decorator(cache_page(60*60*6), name="list")

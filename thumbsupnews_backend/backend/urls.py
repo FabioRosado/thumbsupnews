@@ -7,6 +7,7 @@ from backend import views
 
 router = DefaultRouter()
 router.register('headlines', views.HeadlinesList)
+router.register('markets', views.MarketsList)
 router.register('contact', views.ContactCreate)
 
 urlpatterns = [

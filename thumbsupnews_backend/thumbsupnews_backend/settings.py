@@ -21,11 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+ALLOWED_HOSTS=['*']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,16 +78,23 @@ WSGI_APPLICATION = 'thumbsupnews_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': os.environ['DB_NAME'],
+#        'USER': os.environ['POSTGRES_USER'],
+#        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+#        'HOST': os.environ['DB_HOST'],
+#        'PORT': os.environ['DB_PORT'],
+#    }
+#}
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['POSTGRES_USER'],
-        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
-        'PORT': os.environ['DB_PORT'],
-    }
-}
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR , 'db.sqlite3')
+            }
+        }
 
 # Rest Framework
 
