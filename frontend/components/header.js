@@ -16,8 +16,8 @@ const Header = () => {
     <nav className={show ? "navbar navbar-show" : "navbar navbar-hide"}>
       <button aria-label="Close Nagivation Menu" onClick={() => setShow(false)} className="menu-button"><i className="gg-close" /></button>
       <Link href="/"><a className="mr-5 nav-link">Home</a></Link>
-      <Link href="/about"><a className="nav-link">About</a></Link>
-      <a aria-label="Show Categories Available" className="nav-link visible md:invisible cursor-pointer" onClick={() => setHide(!hide)}>Categories</a>
+      <Link href="/about"><a className="nav-link mr-5">About</a></Link>
+      <a aria-label="Show Categories Available" className="nav-link nav-link-mobile cursor-pointer" onClick={() => setHide(!hide)}>Categories</a>
       <ul className={hide ? "hide pl-5" : "show pl-5"}>
         <li><Link href="/"><a className="nav-link">All</a></Link></li>
         <li><Link href="/category/art"><a className="nav-link">Art</a></Link></li>

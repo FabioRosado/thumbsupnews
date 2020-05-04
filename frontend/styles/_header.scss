@@ -78,11 +78,18 @@
 
 .hide {
   animation: 1s linear .5s forwards scrollup;
+  @media (min-width: 765px) {
+    display: none;
+  }
 }
 
 .show {
   opacity: 0;
   animation: 1s linear forwards scrolldown;
+
+  @media (min-width: 765px) {
+    display: none;
+  }
 }
 
 @keyframes scrollup {
@@ -111,5 +118,12 @@
   100% {
     max-height: auto;
     opacity: 1;
+  }
+}
+
+.nav-link-mobile {
+  display: block;
+  @media (min-width: 765px) {
+    display: none;
   }
 }
