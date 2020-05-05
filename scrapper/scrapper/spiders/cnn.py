@@ -29,8 +29,8 @@ class CNNScrapper(XMLFeedSpider):
         feed_type = response.url.split('/')[-1].replace('.rss', '')
         category = feed_type.replace('edition_', '').title()
         
-        if category == "Edition":
-            return self.category_classifier(title)
+        if category in ["Edition", "Europe"]:
+            return self.category_classifier.classify(title)
         return category
 
     def parse_node(self, response, node):
@@ -49,5 +49,5 @@ class CNNScrapper(XMLFeedSpider):
                 "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": self.get_category(response, self.title),
                 "source": "CNN",
-                "sentiment": self.classifier.classify(self.title)
+                "sentiment": self.sentiment_classifier.classify(self.title)
             }
