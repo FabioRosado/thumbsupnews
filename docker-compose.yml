@@ -14,8 +14,10 @@ services:
     volumes:
       - local_postgres_data:/var/lib/postgresql/data # local_db_path to docker postgres data folder
       - local_postgres_data_backups:/backups # postgres backup db
-    ports: 
-      - "5432"
+    # ports: 
+    #   - "5432"
+    networks:
+      - db_network
 
   backend:
     links:
@@ -28,11 +30,17 @@ services:
       - .env
     depends_on:
       - db
-    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python3 manage.py migrate && gunicorn --chdir backend --bind :8000 thumbsupnews_backend.wsgi:application"
     volumes:
       - .:/thumbsupnews
-    ports:
-      - "8000:8000"
+      - static_volume:/thumbsupnews_backend/static
+
+    networks:
+      - backend_network
+      - nginx_network
+      - db_network
+    # ports:
+    #   - "8000:8000"
 
   frontend:
     ports:
@@ -45,6 +53,9 @@ services:
       - /usr/src/app/.next
     env_file:
       - ./frontend/.env
+    networks:
+      - frontend_network
+      - backend_network
     command: npm run start
   
   nginx:
@@ -53,5 +64,26 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./data/nginx:/etc/nginx/conf.d
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/thumbsupnews_backend/static
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - nginx_network
+      - db_network
+
+networks:
+  nginx_network:
+    driver: bridge
+  db_network:
+    driver: bridge
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge
     
+volumes:
+  static_volume:
+  local_postgres_data:
+  local_postgres_data_backups:
