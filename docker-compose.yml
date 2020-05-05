@@ -46,3 +46,12 @@ services:
     env_file:
       - ./frontend/.env
     command: npm run start
+  
+  nginx:
+    image: nginx:1.17-alpine
+    ports: 
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+    
