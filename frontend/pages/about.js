@@ -21,7 +21,7 @@ export default function About() {
         </p>
         <h2 className="text-xl">Classifier</h2>
         <p className="my-5">
-          Our sentiment analysis classifier is not perfect and is currently running on a 77% accuracy, which means that there could be some false positives. 
+          Our sentiment analysis classifier is not perfect and is currently running on a 81% accuracy, which means that there could be some false positives. 
           To train the sentiment analysis classifier we used the python <a className="nav-link active-link" href="https://www.nltk.org/">NLTK</a> library.
         </p>
         <p className="mb-5">To train the sentiment analysis classifier we used the following resources:</p>
