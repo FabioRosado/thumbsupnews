@@ -18,7 +18,7 @@ with open(NEWS_DATASET,'a') as dataset:
 
 with jsonlines.open(SCRAPPED_NEWS) as reader:
     for line in reader:
-        r = requests.post('http://localhost:8000/headlines/',
+        r = requests.post('http://api.thumbsupnews.net/headlines/',
                         headers={'Authorization': f"Token {os.environ['DJANGO_TOKEN']}"},
                         data=line)
 
