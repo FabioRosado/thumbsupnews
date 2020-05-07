@@ -15,8 +15,13 @@
 @import './components';
 @import './icons';
 
+@font-face {
+  font-family: 'Montserrat';
+  src: local("Montserrat"), url("/public/fonts/Montserrat-Regular.ttf") format("ttf"), url(https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap);
+}
+
 html {
  font-size: 20px;
  line-height: 1.58;
- font-family: 'Montserrat', sans-serif;
+ font-family: 'Montserrat', sans-serif !important;
 }
