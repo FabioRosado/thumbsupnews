@@ -23,7 +23,6 @@ const Header = () => {
         <li><Link href="/category/art"><a className="nav-link">Art</a></Link></li>
         <li><Link href="/category/business"><a className="nav-link">Business</a></Link></li>
         <li><Link href="/category/comedy"><a className="nav-link">Comedy</a></Link></li>
-        <li><Link href="/category/commodities"><a className="nav-link">Commodities</a></Link></li>
         <li><Link href="/category/education"><a className="nav-link">Education</a></Link></li>
         <li><Link href="/category/entertainment"><a className="nav-link">Entertainment</a></Link></li>
         <li><Link href="/category/environment"><a className="nav-link">Environment</a></Link></li>
@@ -32,13 +31,10 @@ const Header = () => {
         <li><Link href="/category/impact"><a className="nav-link">Impact</a></Link></li>
         <li><Link href="/category/lifestyle"><a className="nav-link">Lifestyle</a></Link></li>
         <li><Link href="/category/markets"><a className="nav-link">Markets</a></Link></li>
-        <li><Link href="/category/money"><a className="nav-link">Money</a></Link></li>
         <li><Link href="/category/parenting"><a className="nav-link">Parenting</a></Link></li>
         <li><Link href="/category/political"><a className="nav-link">Political</a></Link></li>
         <li><Link href="/category/religion"><a className="nav-link">Religion</a></Link></li>
         <li><Link href="/category/science"><a className="nav-link">Science</a></Link></li>
-        <li><Link href="/category/security"><a className="nav-link">Security</a></Link></li>
-        <li><Link href="/category/stocks"><a className="nav-link">Stocks</a></Link></li>
         <li><Link href="/category/tech"><a className="nav-link">Tech</a></Link></li>
         <li><Link href="/category/travel"><a className="nav-link">Travel</a></Link></li>
         <li><Link href="/category/weird"><a className="nav-link">Weird</a></Link></li>

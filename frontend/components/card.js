@@ -1,5 +1,5 @@
 import React from "react"
-import Icon from '../images/icon.svg'
+import Icon from '../images/category_icon.svg'
 
 const Card = ({headline}) => {
   const description = headline.description.substring(0, 250)
