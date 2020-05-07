@@ -1,6 +1,7 @@
 import React, { useState } from "react"
-import Link from "./link.js"
+import { animateScroll as scroll } from "react-scroll"
 
+import Link from "./link.js"
 import Card from "./card"
 
 const Main = (props) => {
@@ -10,7 +11,9 @@ const Main = (props) => {
   const pagination = page => {
     fetch('/api/get-page', {method: 'POST', 'body': page})
       .then(results => results.json())
-      .then(r => setData(r))
+      .then(r => {
+        setData(r) 
+        scroll.scrollToTop()})
       .catch(error => console.log(error))
   }
 
@@ -45,7 +48,7 @@ const Main = (props) => {
         <div className="main-content">
         {data.results.map(article => <Card headline={article} key={article.id} />)}
         
-          <a href="#top" className="move-top"><i className="gg-chevron-up mr-1" /></a>
+          <button className="move-top" onClick={() => scroll.scrollToTop()}><i className="gg-chevron-up mr-1" /></button>
           <div className="pagination">
           {pages.map(page => {
               let url = ''
@@ -56,7 +59,7 @@ const Main = (props) => {
               if (data.previous && !data.next) {
                 url = data.previous.replace(/page=\d/gi, `page=${page+1}`)
               }
-              return <a href="#top" key={page} className="link" onClick={() => pagination(url)}>{page+1}</a>
+              return <button key={page} className="link" onClick={() => pagination(url)}>{page+1}</button>
           })}
         </div>
         </div>
