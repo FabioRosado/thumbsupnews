@@ -64,42 +64,42 @@ class CategoryClassifier:
 
                 if 'style' in cat or 'home' in cat:
                     self.categories['lifestyle'].append(
-                            [self.format_sentence(item['headline'].lower()), 'lifestyle']
+                            [self.format_sentence(item['headline'].lower()), 'Lifestyle']
                             )
                     self.categories['lifestyle'].append(
-                            [self.format_sentence(item['short_description'].lower()), 'lifestyle']
+                            [self.format_sentence(item['short_description'].lower()), 'Lifestyle']
                             )
 
                 if 'food' in cat or 'taste' in cat:
                     self.categories['food'].append(
-                            [self.format_sentence(item['headline'].lower()), 'food']
+                            [self.format_sentence(item['headline'].lower()), 'Food']
                             )
                     self.categories['food'].append(
-                            [self.format_sentence(item['short_description'].lower()), 'food']
+                            [self.format_sentence(item['short_description'].lower()), 'Food']
                             )
 
                 if 'art' in cat:
                     self.categories['arts'].append(
-                            [self.format_sentence(item['headline'].lower()), 'arts']
+                            [self.format_sentence(item['headline'].lower()), 'Arts']
                             )
                     self.categories['arts'].append(
-                            [self.format_sentence(item['short_description'].lower()), 'arts']
+                            [self.format_sentence(item['short_description'].lower()), 'Arts']
                             )
 
                 if 'healthy' in cat:
                     self.categories['health'].append(
-                            [self.format_sentence(item['headline'].lower()), 'health']
+                            [self.format_sentence(item['headline'].lower()), 'Health']
                             )
                     self.categories['health'].append(
-                            [self.format_sentence(item['short_description'].lower()), 'health']
+                            [self.format_sentence(item['short_description'].lower()), 'Health']
                             )
 
                 if cat in self.categories.keys():
                     self.categories[cat].append(
-                            [self.format_sentence(item['headline'].lower()), cat]
+                            [self.format_sentence(item['headline'].lower()), cat.title()]
                            )
                     self.categories[cat].append(
-                            [self.format_sentence(item['short_description'].lower()), cat]
+                            [self.format_sentence(item['short_description'].lower()), cat.title()]
                             )
 
         print("Done splitting data. Opening UCI News Aggregator (400k entries) and splitting data...")
@@ -109,21 +109,21 @@ class CategoryClassifier:
             for row in news_reader:
                 if row[4] == 'b':
                     self.categories['business'].append(
-                        [self.format_sentence(row[1].lower()), 'business']
+                        [self.format_sentence(row[1].lower()), 'Business']
                     )
                 
                 if row[4] == 't':
                     self.categories['tech'].append(
-                        [self.format_sentence(row[1].lower()), 'tech']
+                        [self.format_sentence(row[1].lower()), 'Tech']
                     )
 
                 if row[4] == 'e':
                     self.categories['entertainment'].append(
-                        [self.format_sentence(row[1].lower()), 'entertainment']
+                        [self.format_sentence(row[1].lower()), 'Entertainment']
                     )
                 if row[4] == 'm':
                     self.categories['health'].append(
-                        [self.format_sentence(row[1].lower()), 'health']
+                        [self.format_sentence(row[1].lower()), 'Health']
                     )
         print("Done splitting ")
 

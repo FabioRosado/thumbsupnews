@@ -36,7 +36,7 @@ class NewsHeadlineClassifier:
         }
 
     def _read_csv(self):
-        with open(os.path.join(ROOT, 'classifier', 'datasets', 'tt.csv'), 'r') as input_csv:
+        with open(os.path.join(ROOT, 'classifier', 'datasets', 'new_classified_news.csv'), 'r') as input_csv:
             for item in input_csv:
                 item = item.split(',')
                 doc, label = re.findall('\w+', ''.join(item[:-1]).lower()), item[-1].strip()
