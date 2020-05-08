@@ -8,7 +8,7 @@ class ThumbsUpNews extends Document {
 
     render () {
         return (
-            <Html lan="en">
+            <Html lang="en">
                 <Head />
                 <body>
                     <Main />

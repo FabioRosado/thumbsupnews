@@ -23,7 +23,7 @@ const SEO = ({title, description}) => {
         <meta name="og:type" content="website" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@FabioRosado_" />
-        <meta name="twitter:title" content={title} />
+        <meta name="twitter:title" content={`${title} | Thumbs Up News`} />
         <meta name="twitter:image:src" content={Logo} />
         <meta name="twitter:description" content={metaDescription} />
 
