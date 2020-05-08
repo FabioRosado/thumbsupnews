@@ -1,5 +1,4 @@
 import React from "react"
-import { Html } from "next/document"
 import Head from "next/head"
 import Icon from "../public/favicon.svg"
 import Logo from "../public/thumbsupnews_white.png"
