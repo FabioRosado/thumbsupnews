@@ -22,7 +22,7 @@ let config = {
     }),
     new CompressionPlugin({
       test: /\.js$|\.css$|\.html$/,
-      filename: 'bundle.gz',
+      filename: 'bundle.js.gz',
       algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
