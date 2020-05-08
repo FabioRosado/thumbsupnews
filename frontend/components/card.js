@@ -23,7 +23,7 @@ const Card = ({headline}) => {
         <p className="text-sm">{description.replace(/\W$/, '')}... | Read More</p>
         </a>
       </div>
-      <footer className="text-xs flex justify-between">
+      <footer className="text-xs flex justify-between mt-3">
         <p className="date">{headline.date}</p>
         <p className="source">{headline.source}</p>
       </footer>
