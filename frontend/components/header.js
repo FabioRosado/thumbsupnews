@@ -41,7 +41,7 @@ const Header = () => {
         <li><Link href="/category/woman"><a className="nav-link">Woman</a></Link></li>
       </ul>
       <Link href="/contacts"><a className="mr-5 nav-link">Contacts</a></Link>
-      <Link href="/subscribe"><a className="primary-button">Subscribe</a></Link>
+      <Link href="/subscribe"><a className={hide ? "primary-button" : "primary-button safari-only"}>Subscribe</a></Link>
     </nav>
     </header>
 )};

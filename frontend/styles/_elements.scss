@@ -12,6 +12,17 @@
   }
 }
 
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) {
+
+    .safari-only { 
+
+      -webkit-padding-after: 1.7rem;
+
+    }
+}}
+
 // Borders Styling
 
 .border-bottom {
@@ -120,7 +131,7 @@
   display: flex;
 
   @media (max-width: 1200px) {
-    bottom: 8rem;
+    bottom: 4rem;
   }
 }
 

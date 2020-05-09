@@ -48,7 +48,7 @@ const Main = (props) => {
         <div className="main-content">
         {data.results.map(article => <Card headline={article} key={article.id} />)}
         
-          <button className="move-top" onClick={() => scroll.scrollToTop()}><i className="gg-chevron-up mr-1" /></button>
+          <button className="move-top" aria-label="Move To Top of Page" onClick={() => scroll.scrollToTop()}><i className="gg-chevron-up mr-1" /></button>
           <div className="pagination">
           {pages.map(page => {
               let url = ''
@@ -59,7 +59,7 @@ const Main = (props) => {
               if (data.previous && !data.next) {
                 url = data.previous.replace(/page=\d/gi, `page=${page+1}`)
               }
-              return <button key={page} className="link" onClick={() => pagination(url)}>{page+1}</button>
+              return <button key={page} aria-label={`Move to page ${page+1}, will scroll to top`} className="link" onClick={() => pagination(url)}>{page+1}</button>
           })}
         </div>
         </div>
