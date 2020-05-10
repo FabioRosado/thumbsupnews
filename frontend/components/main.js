@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { animateScroll as scroll } from "react-scroll"
 
 import Link from "./link.js"
@@ -7,6 +7,18 @@ import Card from "./card"
 const Main = (props) => {
   const [data, setData] = useState(props.data)
   const pages = Array.from(Array(Math.round(data.count/24)).keys())
+  const [scrollPosition, setScrollPosition] = useState(0)
+
+  const handleScroll = () => {
+    const position = window.pageYOffset
+    setScrollPosition(position)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    
+    return () => { window.removeEventListener('scroll', handleScroll)}
+  })
 
   const pagination = page => {
     fetch('/api/get-page', {method: 'POST', 'body': page})
@@ -47,8 +59,7 @@ const Main = (props) => {
 
         <div className="main-content">
         {data.results.map(article => <Card headline={article} key={article.id} />)}
-        
-          <button className="move-top" aria-label="Move To Top of Page" onClick={() => scroll.scrollToTop()}><i className="gg-chevron-up mr-1" /></button>
+          <button className={ scrollPosition > 150 ? 'move-top' : '' } aria-label="Move To Top of Page" onClick={() => scroll.scrollToTop()}><i className="gg-chevron-up mr-1" /></button>
           <div className="pagination">
           {pages.map(page => {
               let url = ''
