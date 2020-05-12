@@ -13,15 +13,11 @@
 }
 
 
-@media not all and (min-resolution:.001dpcm)
-{ @supports (-webkit-appearance:none) {
-
+@media not all and (max-height: 899px) and (min-resolution:.1dpi) { 
     .safari-only { 
-
       -webkit-padding-after: 1.7rem;
-
     }
-}}
+}
 
 // Borders Styling
 
