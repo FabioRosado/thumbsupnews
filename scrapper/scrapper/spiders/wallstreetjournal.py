@@ -42,13 +42,13 @@ class WallstreetJournalScrapper(XMLFeedSpider):
 
         if is_todays_article(node):
             title = node.xpath('title/text()').get().strip()
-
+            description = remove_html(node.xpath('description/text()').get())
             yield {
                 "title": title,
                 "link": node.xpath('link/text()').get().strip(),
-                "description": remove_html(node.xpath('description/text()').get()),
+                "description": description,
                 "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": self.get_categories(sel.xpath('//wsj:articletype/text()').getall(), title, self.category_classifier),
                 "source": "Wallstreet Journal",
-                "sentiment": self.sentiment_classifier.classify(title)
+                "sentiment": self.sentiment_classifier.classify("{} {}".format(title, description))
             }

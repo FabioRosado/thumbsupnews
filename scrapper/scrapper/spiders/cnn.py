@@ -49,5 +49,5 @@ class CNNScrapper(XMLFeedSpider):
                 "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": self.get_category(response, self.title),
                 "source": "CNN",
-                "sentiment": self.sentiment_classifier.classify(self.title)
+                "sentiment": self.sentiment_classifier.classify("{} {}".format(self.title, description))
             }

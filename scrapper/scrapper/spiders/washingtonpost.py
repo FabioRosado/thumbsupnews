@@ -24,13 +24,14 @@ class WashingtonPostScrapper(XMLFeedSpider):
         if is_todays_article(node):
             title = node.xpath('title/text()').get().strip()
             category = node.xpath('//channel/title/text()').getall()[0]
+            description = remove_html(node.xpath('description/text()').get())
 
             yield {
                 "title": title,
                 "link": node.xpath('link/text()').get().strip(),
-                "description": remove_html(node.xpath('description/text()').get()),
+                "description": description,
                 "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": category,
                 "source": "The Washington Post",
-                "sentiment": self.classifier.classify(title)
+                "sentiment": self.classifier.classify("{} {}".format(title, description))
             }

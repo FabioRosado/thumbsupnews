@@ -33,13 +33,13 @@ class FoxNewsScrapper(XMLFeedSpider):
 
         if is_todays_article(node):
             title = node.xpath('title/text()').get().strip()
-
+            description = remove_html(node.xpath('description/text()').get())
             yield {
                 "title": title, 
                 "link": node.xpath('link/text()').get().split(),
-                "description": remove_html(node.xpath('description/text()').get()),
+                "description": description,
                 "date": transform_date(node.xpath('pubDate/text()').get().strip()),
                 "categories": get_categories_foxnews(node.xpath('category/text()').getall()),
                 "source": "Fox News",
-                "sentiment": self.classifier.classify(title)
+                "sentiment": self.classifier.classify("{} {}".format(title, description))
             }

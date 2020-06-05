@@ -34,5 +34,5 @@ class TechCrunchScrapper(XMLFeedSpider):
                 "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": "Tech",
                 "source": node.xpath('//channel/title/text()').get(),
-                "sentiment": self.classifier.classify(title)
+                "sentiment": self.classifier.classify("{} {}".format(title, description.replace('Read more...', '')))
             }

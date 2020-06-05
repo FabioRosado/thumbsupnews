@@ -30,12 +30,13 @@ class RSSScrapper(XMLFeedSpider):
     def parse_node(self, response, node):
         if is_todays_article(node):
             title = node.xpath('title/text()').get().strip().replace('- CNET', '')
+            description = remove_html(node.xpath('description/text()').get())
             yield {
                 "title": title,
                 "link": node.xpath('link/text()').get().strip(),
-                "description": remove_html(node.xpath('description/text()').get()),
+                "description": description,
                 "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": self.category_classifier.classify(title),
                 "source": self.get_source(node.xpath('//channel/title/text()').getall()),
-                "sentiment": self.sentiment_classifier.classify(title)
+                "sentiment": self.sentiment_classifier.classify("{} {}".format(title, description))
             }

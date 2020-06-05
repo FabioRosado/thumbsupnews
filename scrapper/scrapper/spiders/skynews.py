@@ -34,15 +34,16 @@ class SkyNewsScrapper(XMLFeedSpider):
 
     def parse_node(self, response, node):
         self.title = node.xpath('title/text()').get().strip()
+        description = remove_html(node.xpath('description/text()').get())
 
         if is_todays_article(node):
             yield {
                 "title": self.title,
                 "link": node.xpath('link/text()').get().strip(),
-                "description": remove_html(node.xpath('description/text()').get()),
+                "description": description,
                 "date": transform_date(node.xpath('pubDate/text()').get()),
                 "categories": self.get_category(node, self.category_classifier),
                 "source": "Sky News",
-                "sentiment": self.sentiment_classifier.classify(self.title)
+                "sentiment": self.sentiment_classifier.classify("{} {}".format(self.title, description))
             }
  
