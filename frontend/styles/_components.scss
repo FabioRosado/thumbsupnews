@@ -33,44 +33,36 @@
 .card-pink {
   background-color: $pink;
   border-color: darken($pink, 30%);
-  transition: all 1s 15s ease-in-out;
   
   footer {
     color: darken($pink, 50%);
-    transition: all 1s 15s ease-in-out;
   }
 }
 
 .card-blue {
   background-color: $blue-light;
   border-color: darken($blue-light, 30%);
-  transition: all 1s 15s ease-in-out;
     
   footer {
     color: darken($blue-light, 35%);
-    transition: all 1s 15s ease-in-out;
   }
 }
 
 .card-green {
   background-color: $green;
   border-color: darken($green, 35%);
-  transition: all 1s 15s ease-in-out;
     
   footer {
     color: darken($green, 50%);
-    transition: all 1s 15s ease-in-out;
   }
 }
 
 .card-gray {
   background-color: $bgray-light;
   border-color: darken($bgray-light, 30%);
-  transition: all 1s 15s ease-in-out;
     
   footer {
     color: darken($bgray-light, 45%);
-    transition: all 1s 15s ease-in-out;
   }
 }
 
