@@ -1,3 +1,9 @@
+import os
+import subprocess
+import jsonlines
+import requests
+import time
+
 from scrapy.utils.project import get_project_settings
 from scrapy.crawler import CrawlerProcess
 
@@ -10,12 +16,6 @@ for spider_name in process.spiders.list():
 
 process.start()
 
-
-import os
-import subprocess
-import jsonlines
-import requests
-import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NEWS_DATASET = os.path.join(ROOT, 'classifier', 'datasets', 'news_dataset.json')
@@ -31,9 +31,10 @@ with open(NEWS_DATASET,'a') as dataset:
 
 with jsonlines.open(SCRAPPED_NEWS) as reader:
     for line in reader:
-        r = requests.post('http://api.thumbsupnews.net/headlines/',
-                        headers={'Authorization': f"Token {os.environ['DJANGO_TOKEN']}"},
-                        data=line)
+        if line['sentiment'] == 'positive':
+            r = requests.post('http://api.thumbsupnews.net/headlines/',
+                            headers={'Authorization': f"Token {os.environ['DJANGO_TOKEN']}"},
+                            data=line)
 
 print("Done uploading todays headlines to backend. Removing file...")
 
