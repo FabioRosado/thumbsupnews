@@ -1,4 +1,8 @@
 from django.db import models
+# from backend.classifier import NewsHeadlineClassifier
+from nlp.classifier import NewsHeadlineClassifier
+
+CLASSIFIER = NewsHeadlineClassifier()
 
 
 class Headline(models.Model):
@@ -21,3 +25,11 @@ class Contact(models.Model):
     email = models.EmailField(max_length=200)
     message = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
+
+class Sentiment(models.Model):
+    message = models.TextField()
+    sentiment =  models.CharField(max_length=10, blank=True)
+    
+    def save(self, *args, **kwargs):
+        self.sentiment = CLASSIFIER.classify(self.message)
+        super(Sentiment, self).save(*args, **kwargs)

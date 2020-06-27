@@ -6,9 +6,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework import filters
 from rest_framework import mixins
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework import status
 
-from backend.models import Headline, Contact
-from backend.serializers import HeadlineSerializer, ContactSerializer
+from backend.models import Headline, Contact, Sentiment
+from backend.serializers import HeadlineSerializer, ContactSerializer, SentimentSerializer
 
 
 @method_decorator(cache_page(60*60*6), name="list")
@@ -37,3 +40,14 @@ class ContactCreate(mixins.CreateModelMixin, viewsets.GenericViewSet):
     
     def perform_create(self, serializer):
         serializer.save()
+
+
+class ClassifySentence(viewsets.ModelViewSet):
+    queryset = Sentiment.objects.all()
+    serializer_class = SentimentSerializer
+
+    # def get(self, request):
+    #     return Response(request.body)
+    
+    def perform_create(self, serializer):  
+            serializer.save()

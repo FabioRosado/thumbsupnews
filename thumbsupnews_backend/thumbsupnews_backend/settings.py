@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS=['.thumbsupnews.net', 'api.thumbsupnews.net', '0.0.0.0', os.environ['SERVER_IP'], os.environ['PERSONAL_IP']]
+ALLOWED_HOSTS=['*', '.thumbsupnews.net', 'api.thumbsupnews.net', '0.0.0.0', os.environ['SERVER_IP'], os.environ['PERSONAL_IP']]
 
 # Application definition
 
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'backend.apps.BackendConfig'
+    'backend.apps.BackendConfig',
+    'nlp'
 ]
 
 MIDDLEWARE = [
@@ -76,18 +77,19 @@ WSGI_APPLICATION = 'thumbsupnews_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': os.environ['DB_NAME'],
-       'USER': os.environ['POSTGRES_USER'],
-       'PASSWORD': os.environ['POSTGRES_PASSWORD'],
-       'HOST': os.environ['DB_HOST'],
-       'PORT': os.environ['DB_PORT'],
-   },
-    # 'sqlite': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR , 'db.sqlite3')
-    # }
+   'default': 
+#     {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': os.environ['DB_NAME'],
+#        'USER': os.environ['POSTGRES_USER'],
+#        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+#        'HOST': os.environ['DB_HOST'],
+#        'PORT': os.environ['DB_PORT'],
+#    },
+    {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR , 'db.sqlite3')
+    }
 }
 
 
