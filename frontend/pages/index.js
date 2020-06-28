@@ -11,20 +11,20 @@ const Index = (props) =>
       <Main data={props.data} />
     </Layout>
 
-export async function getServerSideProps() {
-  try {
-    const res = await fetch(`${process.env.BACKEND_URL}`, {
-      headers: {
-        "Authorization": `Token ${process.env.TOKEN}`
-      }
-    })
+// export async function getServerSideProps() {
+//   try {
+//     const res = await fetch(`${process.env.BACKEND_URL}`, {
+//       headers: {
+//         "Authorization": `Token ${process.env.TOKEN}`
+//       }
+//     })
   
-    const data = await res.json()
-    return {props: {data}}
-  } catch(err) {
-    console.log(err);
-    return {props: {data: {results: [], count: 1}} }
- }
-}
+//     const data = await res.json()
+//     return {props: {data}}
+//   } catch(err) {
+//     console.log(err);
+//     return {props: {data: {results: [], count: 1}} }
+//  }
+// }
 
 export default Index

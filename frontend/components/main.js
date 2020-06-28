@@ -1,24 +1,54 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+
 import { animateScroll as scroll } from "react-scroll"
 
 import Link from "./link.js"
 import Card from "./card"
 
 const Main = (props) => {
-  const [data, setData] = useState(props.data)
-  const pages = Array.from(Array(Math.round(data.count/24)).keys())
+  const [data, setData] = useState(null)
+  const [articleUrl, setArticleUrl] = useState(process.env.BACKEND_URL)
+  // const pages = Array.from(Array(Math.round(data.count/24)).keys())
 
   const [layout, setLayout] = useState('grid-view')
 
 
-  const pagination = page => {
-    fetch('/api/get-page', {method: 'POST', 'body': page})
+  const remove_duplicated = (previous, actual) => {
+    const unique = previous
+    for (const article of actual) {
+      if (!previous.some(existing => existing.id === article.id )) {
+        unique.push(article) 
+      }
+    }
+    return unique
+  }
+
+  const articles = url => {
+    fetch('/api/get-articles', {method: 'POST', 'body': url})
       .then(results => results.json())
       .then(r => {
-        setData(r) 
-        scroll.scrollToTop()})
+
+        if (data) {
+          const unique = remove_duplicated(data.results, r.results)
+          setData({next: r.next, results: unique})
+        } else {
+          setData(r)
+        }
+      })
       .catch(error => console.log(error))
   }
+
+  const ArticlesOfSource = url => {
+    fetch('/api/get-page', {method: 'POST', 'body': url})
+      .then(results => results.json())
+      .then(r => setData(r))
+      .catch(error => console.log(error))
+  }
+
+  useEffect(() => {
+    articles(process.env.BACKEND_URL)
+
+  }, [])
 
   return (
         <section className="settings-panel">
@@ -55,17 +85,17 @@ const Main = (props) => {
               <button className="p-3 flex items-center" aria-label="Select News Source"><i className="gg-website mr-1" />Source</button>
 
               <div className="menu absolute z-10 bg-white border shadow w-64 px-8 py-4 flex-col items-start">
-                <button className="m-1 nav-link">CNET News</button>
-                <button className="m-1 nav-link">Mail Online</button>
-                <button className="m-1 nav-link">CNN</button>
-                <button className="m-1 nav-link">Sky News</button>
-                <button className="m-1 nav-link">Life Hacker</button>
-                <button className="m-1 nav-link">MakeUseOf</button>
-                <button className="m-1 nav-link">TechCrunch</button>
-                <button className="m-1 nav-link">The Washington Post</button>
-                <button className="m-1 nav-link">PCWorld</button>
-                <button className="m-1 nav-link">Wallstreet Journal</button>
-                <button className="m-1 nav-link">Gizmodo</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=CNET+News`)}>CNET News</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Mail+Online`)}>Mail Online</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=CNN`)}>CNN</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Sky+News`)}>Sky News</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Life+Hacker`)}>Life Hacker</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=MakeUseOf`)}>MakeUseOf</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=TechCrunch`)}>TechCrunch</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=The+Washington+Post`)}>The Washington Post</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=PCWorld`)}>PCWorld</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Wallstreet+Journal`)}>Wallstreet Journal</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Gizmodo`)}>Gizmodo</button>
               </div>
             
             </div>
@@ -79,24 +109,29 @@ const Main = (props) => {
 
           </div>
 
-          <div className={layout === "grid-view" ? `main-content grid-view` : `main-content list-view`}>
-          {data.results.map(article => <Card headline={article} key={article.id} />)}
-            <button className="move-top" aria-label="Move To Top of Page" onClick={() => scroll.scrollToTop()}><i className="gg-chevron-up mr-1" /></button>
-          </div>
-          <div className="pagination flex justify-center mb-8">
-            {pages.map(page => {
-                let url = ''
-                if (data.next) {
-                  url = data.next.replace(/page=\d/gi, `page=${page+1}`)
-                } 
+          {
+            data ?
+            <>
+              <div className={layout === "grid-view" ? `main-content grid-view` : `main-content list-view`}>
+                {data.results.map(article => <Card headline={article} key={article.id} />)}
 
-                if (data.previous && !data.next) {
-                  url = data.previous.replace(/page=\d/gi, `page=${page+1}`)
-                }
-                return <button key={page} aria-label={`Move to page ${page+1}, will scroll to top`} className="link" onClick={() => pagination(url)}>{page+1}</button>
-            })}
-          </div>
-        
+                <button className="move-top" aria-label="Move To Top of Page" onClick={() => scroll.scrollToTop()}><i className="gg-chevron-up mr-1" /></button>
+              </div>
+              <div className="pagination flex justify-center mb-8">
+
+              { data ? data.next ?
+                <button aria-label="Load more articles flex justify-center" className="link" onClick={() => articles(data.next)}><i className="gg-arrow-down-o mr-2" /> Load More Articles...</button> :
+                <button aria-label="Load more articles" className="link" onClick={() => scroll.scrollToTop()}><i className="gg-danger mr-2" /> No More Articles Available</button>
+                :
+                ''
+              }
+              
+              
+              </div>
+            </> : <div className="flex justify-center"> <i className="gg-spinner-two mr-2" /> Loading...</div>
+
+            
+          }
         </section>
  
 )}
