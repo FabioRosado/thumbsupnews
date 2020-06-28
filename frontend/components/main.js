@@ -21,36 +21,62 @@ const Main = (props) => {
   }
 
   return (
-     <div className="sidebar-main">
-        <div className="sidebar border-right h-screen p-8">
-          <p className="sidebar-header text-sm">Categories</p>
-          <ul className="my-5 side-menu text-lg">
-            <li><Link href="/"><a className="sidebar-menu-item">All</a></Link></li>
-            <li><Link href="/category/art"><a className="sidebar-menu-item">Art</a></Link></li>
-            <li><Link href="/category/business"><a className="sidebar-menu-item">Business</a></Link></li>
-            <li><Link href="/category/comedy"><a className="sidebar-menu-item">Comedy</a></Link></li>
-            <li><Link href="/category/education"><a className="sidebar-menu-item">Education</a></Link></li>
-            <li><Link href="/category/entertainment"><a className="sidebar-menu-item">Entertainment</a></Link></li>
-            <li><Link href="/category/environment"><a className="sidebar-menu-item">Environment</a></Link></li>
-            <li><Link href="/category/food"><a className="sidebar-menu-item">Food</a></Link></li>
-            <li><Link href="/category/health"><a className="sidebar-menu-item">Health</a></Link></li>
-            <li><Link href="/category/impact"><a className="sidebar-menu-item">Impact</a></Link></li>
-            <li><Link href="/category/lifestyle"><a className="sidebar-menu-item">Lifestyle</a></Link></li>
-            <li><Link href="/category/markets"><a className="sidebar-menu-item">Markets</a></Link></li>
-            <li><Link href="/category/parenting"><a className="sidebar-menu-item">Parenting</a></Link></li>
-            <li><Link href="/category/political"><a className="sidebar-menu-item">Political</a></Link></li>
-            <li><Link href="/category/religion"><a className="sidebar-menu-item">Religion</a></Link></li>
-            <li><Link href="/category/science"><a className="sidebar-menu-item">Science</a></Link></li>
-            <li><Link href="/category/tech"><a className="sidebar-menu-item">Tech</a></Link></li>
-            <li><Link href="/category/travel"><a className="sidebar-menu-item">Travel</a></Link></li>
-            <li><Link href="/category/weird"><a className="sidebar-menu-item">Weird</a></Link></li>
-            <li><Link href="/category/woman"><a className="sidebar-menu-item">Woman</a></Link></li>
-          </ul>
-        </div>
-        <section>
-          <div className="flex justify-end mt-8 mb-2 pr-12">
-          <button className="mr-6" aria-label="Change Layout to List" onClick={() => setLayout("list-view")}><i className="text-gray-700 gg-layout-list" /></button>
-          <button className="" aria-label="Change Layout to Grid" onClick={() => setLayout("grid-view")}><i className="text-gray-700 gg-layout-grid" /></button>
+        <section className="settings-panel">
+          <div className="flex justify-between mt-8 px-12">
+            <div className="relative mr-3 dropdown">
+              <button className="ml-5 p-3 flex items-center" aria-label="Select News Source"><i className="gg-folder mr-1" />Categories</button>
+
+              <div className="menu absolute z-10 bg-white border shadow w-64 px-8 py-4 flex-col items-start">
+
+                <Link href="/"><a className="m-1 nav-link">All</a></Link>
+                <Link href="/category/art"><a className="m-1 nav-link">Art</a></Link>
+                <Link href="/category/business"><a className="m-1 nav-link">Business</a></Link>
+                <Link href="/category/comedy"><a className="m-1 nav-link">Comedy</a></Link>
+                <Link href="/category/education"><a className="m-1 nav-link">Education</a></Link>
+                <Link href="/category/entertainment"><a className="m-1 nav-link">Entertainment</a></Link>
+                <Link href="/category/environment"><a className="m-1 nav-link">Environment</a></Link>
+                <Link href="/category/food"><a className="m-1 nav-link">Food</a></Link>
+                <Link href="/category/health"><a className="m-1 nav-link">Health</a></Link>
+                <Link href="/category/impact"><a className="m-1 nav-link">Impact</a></Link>
+                <Link href="/category/lifestyle"><a className="m-1 nav-link">Lifestyle</a></Link>
+                <Link href="/category/markets"><a className="m-1 nav-link">Markets</a></Link>
+                <Link href="/category/parenting"><a className="m-1 nav-link">Parenting</a></Link>
+                <Link href="/category/political"><a className="m-1 nav-link">Political</a></Link>
+                <Link href="/category/religion"><a className="m-1 nav-link">Religion</a></Link>
+                <Link href="/category/science"><a className="m-1 nav-link">Science</a></Link>
+                <Link href="/category/tech"><a className="m-1 nav-link">Tech</a></Link>
+                <Link href="/category/travel"><a className="m-1 nav-link">Travel</a></Link>
+                <Link href="/category/weird"><a className="m-1 nav-link">Weird</a></Link>
+                <Link href="/category/woman"><a className="m-1 nav-link">Woman</a></Link>
+            </div>
+          
+          </div>
+            <div className="relative mr-3 dropdown">
+              <button className="p-3 flex items-center" aria-label="Select News Source"><i className="gg-website mr-1" />Source</button>
+
+              <div className="menu absolute z-10 bg-white border shadow w-64 px-8 py-4 flex-col items-start">
+                <button className="m-1 nav-link">CNET News</button>
+                <button className="m-1 nav-link">Mail Online</button>
+                <button className="m-1 nav-link">CNN</button>
+                <button className="m-1 nav-link">Sky News</button>
+                <button className="m-1 nav-link">Life Hacker</button>
+                <button className="m-1 nav-link">MakeUseOf</button>
+                <button className="m-1 nav-link">TechCrunch</button>
+                <button className="m-1 nav-link">The Washington Post</button>
+                <button className="m-1 nav-link">PCWorld</button>
+                <button className="m-1 nav-link">Wallstreet Journal</button>
+                <button className="m-1 nav-link">Gizmodo</button>
+              </div>
+            
+            </div>
+
+            <div className="flex justify-center">
+
+              <button className="mr-3 p-3" aria-label="Change Layout to List" onClick={() => setLayout("list-view")}><i className="gg-layout-list" /></button>
+              <button className="p-3" aria-label="Change Layout to Grid" onClick={() => setLayout("grid-view")}><i className="gg-layout-grid" /></button>
+            
+            </div>
+
           </div>
 
           <div className={layout === "grid-view" ? `main-content grid-view` : `main-content list-view`}>
@@ -72,7 +98,6 @@ const Main = (props) => {
           </div>
         
         </section>
-      </div>
  
 )}
 

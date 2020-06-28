@@ -1,4 +1,8 @@
 
+:focus {
+  outline-color: $pink;
+}
+
 .primary-button {
   background-color: white;
   color: $blue-dark;
@@ -43,65 +47,15 @@
 
 // Page elements
 
-.sidebar-main {
+.main-content {
   display: grid;
-  grid-template-columns: 303px 1fr;
+  
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 2rem;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+  position: relative;
 
-  @include mobile {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    display: block;
-    min-height: 100%;
-
-    @include mobile {
-      display: none;
-    }
-  }
-  .sidebar-header {
-    color: $gray-dark;
-    position: relative;
-  }
-
-  .sidebar-header::after{
-    position: absolute;
-    content: "";
-    height: 2px;
-    background-color: $bgray-lightest;
-    top: 50%;
-    width: 70%;
-    margin-left: 15px;
-  }
-
-
-  .sidebar-menu-item {
-    color: $blue-darkest;
-    font-weight: bold;
-    font-size: 1.25rem;
-    margin-bottom: .5rem;
-    cursor: pointer;
-
-    &:hover {
-      color: $blue-dark;
-      font-size: 1.5rem;
-    }
-  }
-
-  .sidebar-menu-item.active {
-    color: $blue-dark !important;
-    font-size: 1.5rem !important;
-  }
-  .main-content {
-    display: grid;
-    
-    grid-template-rows: repeat(6, 1fr);
-    grid-gap: 1rem;
-    padding: 1rem 2rem;
-    margin-bottom: 1rem;
-    position: relative;
-
-  }
 }
 
 .grid-view {
@@ -159,4 +113,28 @@
       transition: all, ease-in-out, .5s;
     }
   }
+}
+
+.settings-panel {
+  button {
+    color: $blue-darkest;
+
+    &:focus {
+      outline-color: $pink;
+    }
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .dropdown:hover, .dropdown:focus, .dropdown:active, .dropdown:focus-within {
+
+    .menu {
+      display: flex;
+      color: #717198;
+
+    }
+  }
+
 }
