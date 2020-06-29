@@ -11,24 +11,31 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from backend.models import Headline, Contact, Sentiment
-from backend.serializers import HeadlineSerializer, ContactSerializer, SentimentSerializer
+from backend.serializers import (
+    HeadlineSerializer,
+    ContactSerializer,
+    SentimentSerializer,
+)
 
 
-@method_decorator(cache_page(60*60*6), name="list")
+@method_decorator(cache_page(60 * 60 * 6), name="list")
 class MarketsList(viewsets.ModelViewSet):
     queryset = Headline.objects.filter(
-        Q(categories__icontains='markets') | Q(categories__icontains='commodities') | Q(categories__icontains='money') | Q(categories__icontains='stocks')
+        Q(categories__icontains="markets")
+        | Q(categories__icontains="commodities")
+        | Q(categories__icontains="money")
+        | Q(categories__icontains="stocks")
     )
     serializer_class = HeadlineSerializer
 
 
-@method_decorator(cache_page(60*60*6), name="list")
+@method_decorator(cache_page(60 * 60 * 6), name="list")
 class HeadlinesList(viewsets.ModelViewSet):
-    queryset = Headline.objects.all().order_by('-date')
+    queryset = Headline.objects.all().order_by("-date")
     serializer_class = HeadlineSerializer
-    filterset_fields = ['categories', 'source', 'sentiment', 'is_positive', 'date']
+    filterset_fields = ["categories", "source", "sentiment", "is_positive", "date"]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    search_fields = ['categories'] 
+    search_fields = ["categories"]
 
     def perform_create(self, serializer):
         serializer.save()
@@ -37,7 +44,7 @@ class HeadlinesList(viewsets.ModelViewSet):
 class ContactCreate(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
-    
+
     def perform_create(self, serializer):
         serializer.save()
 
@@ -48,6 +55,6 @@ class ClassifySentence(viewsets.ModelViewSet):
 
     # def get(self, request):
     #     return Response(request.body)
-    
-    def perform_create(self, serializer):  
-            serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()

@@ -22,16 +22,18 @@ class NewsHeadlineClassifier:
             self.classifier = self.load_classifier()
             print(f"Sentiment classifier loaded...")
         except FileNotFoundError:
-            print(f"No classifier found, opening dataset and will train new classifier.")
+            print(
+                f"No classifier found, opening dataset and will train new classifier."
+            )
             self.classifier = self._train_classifier()
 
     def format_sentence(self, sent):
         """Tokenize sentence and return format that can work with
         NLTK.NaiveBayesClassifier."""
         return {
-            word: True 
-            for word in regexp_tokenize(sent, pattern='\w+') 
-            if word not in stopwords.words('english')
+            word: True
+            for word in regexp_tokenize(sent, pattern="\w+")
+            if word not in stopwords.words("english")
         }
 
     # def _read_csv(self):
@@ -42,7 +44,7 @@ class NewsHeadlineClassifier:
 
     #             if label == 'positive':
     #                 self.positive_headlines.append([self.format_sentence(' '.join(doc)), 'positive'])
-    #             else: 
+    #             else:
     #                 self.negative_headlines.append([self.format_sentence(' '.join(doc)), 'negative'])
     #     print("Positive: {} \n Negative: {} \n\n\n".format(len(self.positive_headlines), len(self.negative_headlines)))
 
@@ -50,18 +52,24 @@ class NewsHeadlineClassifier:
         """Use 80% of tweets to train a classifier."""
         # self._read_csv()
 
-        training = self.positive_headlines[:int(.8 * len(self.positive_headlines))] + \
-            self.negative_headlines[:int(.8 * len(self.negative_headlines))]
+        training = (
+            self.positive_headlines[: int(0.8 * len(self.positive_headlines))]
+            + self.negative_headlines[: int(0.8 * len(self.negative_headlines))]
+        )
 
-        testing = self.negative_headlines[int(.8 * len(self.positive_headlines)):] + \
-            self.negative_headlines[int(.8 * len(self.negative_headlines)):]
+        testing = (
+            self.negative_headlines[int(0.8 * len(self.positive_headlines)) :]
+            + self.negative_headlines[int(0.8 * len(self.negative_headlines)) :]
+        )
         print("Training Classifier...")
-        
+
         print(training[:5])
 
         classifier = NaiveBayesClassifier.train(training)
-        print(f"Classifier trained with "
-              f"success - accuracy rating: {round(accuracy(classifier, testing), 2)}%")
+        print(
+            f"Classifier trained with "
+            f"success - accuracy rating: {round(accuracy(classifier, testing), 2)}%"
+        )
 
         self.save_classifier(classifier)
         return classifier
@@ -72,18 +80,18 @@ class NewsHeadlineClassifier:
         sid = SentimentIntensityAnalyzer()
         score = sid.polarity_scores(text)
 
-        if score['neu'] == 1.0:
+        if score["neu"] == 1.0:
             return classified
 
-        if score['pos'] > score['neg'] and classified == 'positive':
-            return 'positive'
+        if score["pos"] > score["neg"] and classified == "positive":
+            return "positive"
 
-        return 'negative'
+        return "negative"
 
     def save_classifier(self, classifier):
-        with open(os.path.join(ROOT, 'nlp', 'news.pickle'), 'wb') as save_classifier:
+        with open(os.path.join(ROOT, "nlp", "news.pickle"), "wb") as save_classifier:
             pickle.dump(classifier, save_classifier)
 
     def load_classifier(self):
-        with open(os.path.join(ROOT, 'nlp', 'news.pickle'), "rb") as loaded_classifier:
+        with open(os.path.join(ROOT, "nlp", "news.pickle"), "rb") as loaded_classifier:
             return pickle.load(loaded_classifier)

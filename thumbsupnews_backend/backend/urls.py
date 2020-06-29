@@ -7,12 +7,11 @@ from backend import views
 
 
 router = DefaultRouter()
-router.register('headlines', views.HeadlinesList, "/headlines")
-router.register('markets', views.MarketsList)
-router.register('contact', views.ContactCreate)
-router.register('sentiment', views.ClassifySentence)
+router.register("headlines", views.HeadlinesList, "/headlines")
+router.register("markets", views.MarketsList)
+router.register("contact", views.ContactCreate)
+router.register("sentiment", views.ClassifySentence)
 
 urlpatterns = [
-    path('', include(router.urls)),
-
+    path("", include(router.urls)),
 ]
