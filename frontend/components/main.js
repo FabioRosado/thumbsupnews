@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
-
 import { animateScroll as scroll } from "react-scroll"
+import fetch from 'isomorphic-unfetch'
 
 import Link from "./link.js"
 import Card from "./card"
@@ -127,7 +127,7 @@ const Main = (props) => {
               
               
               </div>
-            </> : <div className="flex justify-center"> <i className="gg-spinner-two mr-2" /> Loading...</div>
+            </> : <div className="flex mt-64 justify-center"> <i className="gg-spinner-two mr-2" /> Loading...</div>
 
             
           }

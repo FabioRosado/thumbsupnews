@@ -1,5 +1,4 @@
 import React from "react"
-import Icon from '../images/category_icon.svg'
 
 const Card = ({headline}) => {
   const description = headline.description.substring(0, 250)
@@ -13,7 +12,7 @@ const Card = ({headline}) => {
       <a href={headline.link}>
       <span className="letter">{headline.title.charAt(0)}</span>
         <p className="text-xs flex">
-          <img src={Icon} className="mr-2" width="20px" alt={headline.categories} /> {headline.categories}
+         {headline.categories}
         </p>
         <h1 className="mb-5 font-semibold text-lg">{headline.title}</h1>
       </a>

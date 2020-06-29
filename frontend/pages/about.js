@@ -108,8 +108,7 @@ export default function About() {
 
         <h2 className="text-xl">Structure</h2>
         <p className="my-5">
-          Thumbs Up Projects uses <a className="nav-link active-link" href="https://www.djangoproject.com/">Django</a> 
-           for the backend and uses the <a className="nav-link active-link" href="https://www.django-rest-framework.org/">Django Rest Framework</a> 
+          Thumbs Up Projects uses <a className="nav-link active-link" href="https://www.djangoproject.com/">Django</a> for the backend and uses the <a className="nav-link active-link" href="https://www.django-rest-framework.org/">Django Rest Framework</a> 
            to generate the API to be called by the frontend. The frontend uses <a className="nav-link active-link" href="https://nextjs.org/">NextJS</a>.
         </p>
 
