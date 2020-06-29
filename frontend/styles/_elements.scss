@@ -49,13 +49,10 @@
 
 .main-content {
   display: grid;
-  
-  grid-template-rows: repeat(6, 1fr);
   grid-gap: 2rem;
   padding: 1rem 2rem;
   margin-bottom: 1rem;
   position: relative;
-
 }
 
 .grid-view {

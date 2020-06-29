@@ -6,10 +6,7 @@ import Link from "./link.js"
 import Card from "./card"
 
 const Main = (props) => {
-  const [data, setData] = useState(null)
-  const [articleUrl, setArticleUrl] = useState(process.env.BACKEND_URL)
-  // const pages = Array.from(Array(Math.round(data.count/24)).keys())
-
+  const [data, setData] = useState(props.data)
   const [layout, setLayout] = useState('grid-view')
 
 
@@ -46,7 +43,9 @@ const Main = (props) => {
   }
 
   useEffect(() => {
-    articles(process.env.BACKEND_URL)
+    if (!data) {
+      articles(process.env.BACKEND_URL)
+    }
 
   }, [])
 
@@ -86,16 +85,16 @@ const Main = (props) => {
 
               <div className="menu absolute z-10 bg-white border shadow w-64 px-8 py-4 flex-col items-start">
                 <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=CNET+News`)}>CNET News</button>
-                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Mail+Online`)}>Mail Online</button>
                 <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=CNN`)}>CNN</button>
-                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Sky+News`)}>Sky News</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Gizmodo`)}>Gizmodo</button>
                 <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Life+Hacker`)}>Life Hacker</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Mail+Online`)}>Mail Online</button>
                 <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=MakeUseOf`)}>MakeUseOf</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=PCWorld`)}>PCWorld</button>
+                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Sky+News`)}>Sky News</button>
                 <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=TechCrunch`)}>TechCrunch</button>
                 <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=The+Washington+Post`)}>The Washington Post</button>
-                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=PCWorld`)}>PCWorld</button>
                 <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Wallstreet+Journal`)}>Wallstreet Journal</button>
-                <button className="m-1 nav-link" onClick={() => ArticlesOfSource(`${process.env.BACKEND_URL}&source=Gizmodo`)}>Gizmodo</button>
               </div>
             
             </div>
