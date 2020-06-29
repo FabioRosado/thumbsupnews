@@ -1,5 +1,4 @@
 export default async function (req, res) {
-    console.log(req.body)
     const response = await fetch(req.body, {
         headers: {
             "Authorization": `Token ${process.env.TOKEN}`
