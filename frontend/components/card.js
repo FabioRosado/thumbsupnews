@@ -1,4 +1,6 @@
 import React from "react"
+import fetch from 'isomorphic-unfetch'
+
 
 const Card = ({headline}) => {
   const description = headline.description.substring(0, 250)
@@ -6,10 +8,16 @@ const Card = ({headline}) => {
   const colors = ['gray', 'pink', 'green', 'blue']
   const random = Math.floor(Math.random() * colors.length)
 
+  const addClick = (data) => {
+    data.clicks++
+    fetch('/api/update-article', {method: "POST", body: JSON.stringify(data)})
+  }
+
+
   return (      
     <article className={`card card-${colors[random]}`}>
       <header>
-      <a href={headline.link}>
+      <a href={headline.link} onClick={() => addClick(headline)}>
       <span className="letter">{headline.title.charAt(0)}</span>
         <p className="text-xs flex">
          {headline.categories}
@@ -18,7 +26,7 @@ const Card = ({headline}) => {
       </a>
       </header>
       <div className="h-full">
-        <a href={headline.link}>
+        <a href={headline.link} onClick={() => addClick(headline)}>
         <p className="text-sm">{description.replace(/\W$/, '')}... | Read More</p>
         </a>
       </div>
