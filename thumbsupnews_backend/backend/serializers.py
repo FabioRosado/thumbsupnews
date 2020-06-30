@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Headline, Contact, Sentiment
+from .models import Headline, Contact, Sentiment, Summary
 
 
 class HeadlineSerializer(serializers.ModelSerializer):
@@ -33,3 +33,9 @@ class SentimentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sentiment
         fields = ["message", "sentiment"]
+
+
+class SummarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Summary
+        fields = ["text", "summary", "sentences", "words"]

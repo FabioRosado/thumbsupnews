@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from collections import defaultdict
 
 
-class Summary:
+class SummaryClass:
     def __init__(self, text, sentences=7, words=30):
         self.text = text
         self.sentences = sentences

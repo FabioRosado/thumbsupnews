@@ -9,12 +9,15 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.views import APIView
 
-from backend.models import Headline, Contact, Sentiment
+from backend.models import Headline, Contact, Sentiment, Summary
 from backend.serializers import (
     HeadlineSerializer,
     ContactSerializer,
     SentimentSerializer,
+    SummarySerializer
 )
 
 
@@ -33,12 +36,21 @@ class MarketsList(viewsets.ModelViewSet):
 class HeadlinesList(viewsets.ModelViewSet):
     queryset = Headline.objects.all().order_by("-date")
     serializer_class = HeadlineSerializer
-    filterset_fields = ["categories", "source", "sentiment", "is_positive", "date"]
+    filterset_fields = ["categories", "source", "sentiment", "is_positive", "date", "clicks"]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ["categories"]
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+@method_decorator(cache_page(60 * 60 * 6), name="list")
+class PopularArticles(viewsets.ModelViewSet):
+    queryset = Headline.objects.all().order_by("-clicks")
+    serializer_class = HeadlineSerializer
+    filterset_fields = ["categories", "source", "sentiment", "is_positive", "date", "clicks"]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ["categories"]
 
 
 class ContactCreate(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -53,8 +65,13 @@ class ClassifySentence(viewsets.ModelViewSet):
     queryset = Sentiment.objects.all()
     serializer_class = SentimentSerializer
 
-    # def get(self, request):
-    #     return Response(request.body)
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class Summary(viewsets.ModelViewSet):
+    queryset = Summary.objects.all()
+    serializer_class = SummarySerializer
 
     def perform_create(self, serializer):
         serializer.save()

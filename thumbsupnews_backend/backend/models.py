@@ -1,5 +1,6 @@
 from django.db import models
 from nlp.classifier import NewsHeadlineClassifier
+from nlp.summary import SummaryClass
 
 CLASSIFIER = NewsHeadlineClassifier()
 
@@ -22,9 +23,6 @@ class Headline(models.Model):
     class Meta:
         ordering = ["created"]
 
-    def save(self, *args, **kwargs):
-        self.sentiment = CLASSIFIER.classify(f"{self.title} {self.description}")
-
 
 class Contact(models.Model):
     name = models.CharField(max_length=100)
@@ -40,3 +38,15 @@ class Sentiment(models.Model):
     def save(self, *args, **kwargs):
         self.sentiment = CLASSIFIER.classify(self.message)
         super(Sentiment, self).save(*args, **kwargs)
+
+
+class Summary(models.Model):
+    text = models.TextField()
+    summary = models.TextField(blank=True)
+    sentences = models.IntegerField(default=7)
+    words = models.IntegerField(default=30)
+
+    def save(self, *args, **kwargs):
+        text_summary = SummaryClass(self.text, sentences=self.sentences, words=self.words)
+        self.summary = text_summary.get_summary().replace('"', "'")
+        super(Summary, self).save(*args, **kwargs)

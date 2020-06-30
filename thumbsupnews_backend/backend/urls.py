@@ -8,9 +8,11 @@ from backend import views
 
 router = DefaultRouter()
 router.register("headlines", views.HeadlinesList, "/headlines")
-router.register("markets", views.MarketsList)
+router.register("markets", views.MarketsList, "/markets")
+router.register("popular", views.PopularArticles, "/popular")
 router.register("contact", views.ContactCreate)
 router.register("sentiment", views.ClassifySentence)
+router.register("summary", views.Summary)
 
 urlpatterns = [
     path("", include(router.urls)),
