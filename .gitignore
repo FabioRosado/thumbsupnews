@@ -17,3 +17,5 @@ node_modules/
 frontend/.env/
 TODO
 *.pickle
+data/
+certbo-etct/

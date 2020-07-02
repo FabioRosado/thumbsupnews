@@ -51,7 +51,7 @@ const Main = (props) => {
 
   return (
         <section className="settings-panel">
-          <div className="flex justify-between mt-8 px-12">
+          <div className="flex justify-between mt-8 md:px-12">
             <div className="relative mr-3 dropdown">
               <button className="ml-5 p-3 flex items-center" aria-label="Select News Source"><i className="gg-folder mr-1" />Categories</button>
 
@@ -99,7 +99,7 @@ const Main = (props) => {
             
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center invisible md:visible">
 
               <button className="mr-3 p-3" aria-label="Change Layout to List" onClick={() => setLayout("list-view")}><i className="gg-layout-list" /></button>
               <button className="p-3" aria-label="Change Layout to Grid" onClick={() => setLayout("grid-view")}><i className="gg-layout-grid" /></button>
