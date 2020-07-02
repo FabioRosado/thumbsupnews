@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     ".thumbsupnews.net",
     "api.thumbsupnews.net",
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django_filters",
     "backend.apps.BackendConfig",
-    "nlp",
+    "nlp.apps.NlpConfig",
 ]
 
 MIDDLEWARE = [

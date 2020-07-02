@@ -1,3 +1,5 @@
+const fetch = require("node-fetch")
+
 export default async function (req, res) {
     const data = JSON.parse(req.body)
 

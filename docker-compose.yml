@@ -28,7 +28,7 @@ services:
       - .env
     depends_on:
       - db
-    command: bash -c "python3 manage.py migrate && gunicorn --chdir backend --bind :8000 thumbsupnews_backend.wsgi:application"
+    command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && gunicorn --chdir backend --bind :8000 thumbsupnews_backend.wsgi:application"
     volumes:
       - .:/thumbsupnews
       - static_volume:/thumbsupnews_backend/static
@@ -73,9 +73,12 @@ services:
   
   certbot:
     image: certbot/certbot
+    depends_on:
+      - nginx
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - .data/certbot/www:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/ --email fabioglrosado@gmail.com --agree-tos --no-eff-email --force-renew -d thumbsupnews.net -d www.thumbsupnews.net -d api.thumbsupnews.net -d www.api.thumbsupnews.net
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
 networks:

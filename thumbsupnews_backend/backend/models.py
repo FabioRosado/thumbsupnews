@@ -21,6 +21,7 @@ class Headline(models.Model):
     thumbs_down = models.IntegerField(default=0)
 
     class Meta:
+        managed = True
         ordering = ["created"]
 
 
