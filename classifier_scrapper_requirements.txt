@@ -1,5 +1,5 @@
 beautifulsoup4==4.8.2
 nltk==3.5
-scrapy==2.0.1
+scrapy==2.6.0
 jsonlines==1.2.0
 requests==2.23.0
